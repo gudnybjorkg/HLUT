@@ -5,9 +5,7 @@ enum Game{ Breakthrough = 0, Ataxx = 1};
 
 struct Player{
 public:
-    //test1
-    //Constructs a Player with a specific number of "pawns"
-    Player(int noPlayers);
+    Player();
 private:
     int m_noPlayers;
     int m_score;
