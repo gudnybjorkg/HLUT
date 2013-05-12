@@ -21,7 +21,7 @@ public:
         t  |  |  |  |  |  |
         h  |  |  |  |  |  |
     */
-    Board();
+    Board(){}
     Board(int length, int width);
 private:
     int m_length;
