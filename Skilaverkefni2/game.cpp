@@ -37,6 +37,7 @@ GamePlay::GamePlay(int gametype){
     else if(m_gametype == 1)
         m_board = Board(8,8);
 }
-GamePlay()::~GamePlay(){
-
+GamePlay::~GamePlay(){
 }
+
+
