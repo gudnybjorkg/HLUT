@@ -1,6 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <string>
+#include <vector>
+
 enum Game{ Breakthrough = 0, Ataxx = 1};
 
 struct Player{
@@ -8,21 +11,17 @@ public:
     //test1
     //Constructs a Player with a specific number of "pawns"
     Player(int noPlayers);
+    int getScore();
 private:
+    void setScore(int score);
+
     int m_noPlayers;
     int m_score;
 };
 
 struct Board{
 public:
-    /*Constructs a square board with a specific size of length and width.
-           L  e  n  g  t  h
-        W  |  |  |  |  |  |
-        i  |  |  |  |  |  |
-        d  |  |  |  |  |  |
-        t  |  |  |  |  |  |
-        h  |  |  |  |  |  |
-    */
+    //Constructs a square board of a specific size.
     Board(int length, int width);
 private:
     int m_length;

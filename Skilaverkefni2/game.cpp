@@ -13,6 +13,12 @@ Player::Player(int noPlayers){
     m_score = 0;
     //test2
 }
+int Player::getScore(){
+    return m_score;
+}
+void Player::setScore(int score){
+    m_score = score;
+}
 /*-------------------------------------------------------------
 
 Implementation of the GamePlay class
@@ -21,9 +27,9 @@ Implementation of the GamePlay class
 Board::Board(int length, int width){
     m_length = length;
     m_width = width;
-    tiles = new int*[m_width-1];
+    tiles = new int*[m_length-1];
     for(int i = 0; i < m_width; i++)
-        tiles[i] = new int[m_length-1];
+        tiles[i] = new int[m_width-1];
 }
 /*-------------------------------------------------------------
 
@@ -32,7 +38,4 @@ Implementation of the GamePlay class
 ---------------------------------------------------------------*/
 GamePlay::GamePlay(int gametype){
     m_gametype = gametype;
-}
-GamePlay()::~GamePlay(){
-
 }
