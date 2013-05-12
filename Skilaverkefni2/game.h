@@ -21,6 +21,7 @@ public:
         t  |  |  |  |  |  |
         h  |  |  |  |  |  |
     */
+    Board();
     Board(int length, int width);
 private:
     int m_length;
@@ -37,7 +38,7 @@ private:
     int m_gametype;
     Board m_board;
     Player p1;
-    Player P2;
+    Player p2;
 };
 
 

@@ -30,12 +30,12 @@ Implementation of the GamePlay class
 ---------------------------------------------------------------*/
 GamePlay::GamePlay(int gametype){
     m_gametype = gametype;
-    p1 = new Player();
-    p2 = new Player();
+    p1 = Player();
+    p2 = Player();
     if(m_gametype == 0)
-        m_board = new Board(7,7);
+        m_board = Board(7,7);
     else if(m_gametype == 1)
-        m_board = new Board(8,8);
+        m_board = Board(8,8);
 }
 GamePlay()::~GamePlay(){
 
