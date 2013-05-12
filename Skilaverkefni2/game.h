@@ -8,6 +8,7 @@ enum Game{ Breakthrough = 0, Ataxx = 1};
 
 struct Player{
 public:
+    //test1
     //Constructs a Player with a specific number of "pawns"
     Player(int noPlayers);
     int getScore();

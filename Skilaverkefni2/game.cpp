@@ -11,6 +11,7 @@ Implementation of the GamePlay class
 Player::Player(int noPlayers){
     m_noPlayers = noPlayers;
     m_score = 0;
+    //test2
 }
 int Player::getScore(){
     return m_score;
