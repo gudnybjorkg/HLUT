@@ -1,11 +1,11 @@
 #include <iostream>
 #include "game.h"
-
+#include <map>
 using namespace std;
 
 /*-------------------------------------------------------------
 
-Implementation of the GamePlay class
+Implementation of the Player class
 
 ---------------------------------------------------------------*/
 Player::Player(){
@@ -13,7 +13,7 @@ Player::Player(){
 }
 /*-------------------------------------------------------------
 
-Implementation of the GamePlay class
+Implementation of the Board class
 
 ---------------------------------------------------------------*/
 Board::Board(int length, int width){
@@ -26,8 +26,8 @@ Board::Board(int length, int width){
     for(int j = 0; j < m_width; j++){
         for(int k = 0; k < m_length; k++){
             tiles[j][k] = Piece('.');
-            tiles[j][k].m_owner = -1;
-            tiles[j][k].m_location = map.insert(j,k);
+            tiles[j][k].setOwner(-1);
+            tiles[j][k].setLocation(j,k);
         }
     }
 }

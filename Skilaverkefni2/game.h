@@ -6,13 +6,13 @@ enum Game{ Breakthrough = 0, Ataxx = 1};
 
 class Piece{
 public:
-    Piece();
-    Piece(char type);
-    void setOwner(int owner);
-    int getOwner();
-    std::pair<int, int> getLocation();
-    void setLocation(int x, int y);
-    virtual ~Piece();
+    Piece(){}
+    Piece(char type){}
+    void setOwner(int owner){}
+    int getOwner(){ return 1;}
+    std::pair<int, int> getLocation(Piece piece){ return piece.m_location; }
+    void setLocation(int x, int y){ m_location = std::make_pair(x,y); }
+    virtual ~Piece(){}
 private:
     char m_type;
     int m_owner;
@@ -23,7 +23,7 @@ struct Player{
 public:
     Player();
 private:
-    pair<int, int> m_lastLocation;
+    std::pair<int, int> m_lastLocation;
     int m_score;
     std::vector<Piece> m_pieces;
 };
