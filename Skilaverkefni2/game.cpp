@@ -19,19 +19,27 @@ Implementation of the GamePlay class
 Board::Board(int length, int width){
     m_length = length;
     m_width = width;
-    tiles = new int*[m_width-1];
-    for(int i = 0; i < m_width; i++)
-        tiles[i] = new int[m_length-1];
+    tiles = new Piece*[m_width];
+    for(int i = 0; i < m_width; i++){
+        tiles[i] = new Piece[m_length];
+    }
+    for(int j = 0; j < m_width; j++){
+        for(int k = 0; k < m_length; k++){
+            tiles[j][k] = Piece('.');
+            tiles[j][k].m_owner = -1;
+            tiles[j][k].m_location = map.insert(j,k);
+        }
+    }
 }
 /*-------------------------------------------------------------
 
 Implementation of the GamePlay class
 
 ---------------------------------------------------------------*/
-GamePlay::GamePlay(int gametype){
-    m_gametype = gametype;
-    p1 = Player();
-    p2 = Player();
+GamePlay::GamePlay(){
+    m_p1 = Player();
+    m_p2 = Player();
+    m_turns = 0;
     if(m_gametype == 0)
         m_board = Board(7,7);
     else if(m_gametype == 1)
