@@ -3,14 +3,7 @@
 #include <map>
 using namespace std;
 
-/*-------------------------------------------------------------
 
-Implementation of the Player class
-
----------------------------------------------------------------*/
-Player::Player(){
-    m_score = 0;
-}
 /*-------------------------------------------------------------
 
 Implementation of the Board class

@@ -6,9 +6,9 @@ enum Game{ Breakthrough = 0, Ataxx = 1};
 
 class Piece{
 public:
-    Piece(){}
-    Piece(char type){}
-    void setOwner(int owner){}
+    Piece(){m_type = '.'; m_owner = -1;}
+    Piece(char type){m_type = type;}
+    void setOwner(int owner){m_owner = owner;}
     int getOwner(){ return 1;}
     std::pair<int, int> getLocation(Piece piece){ return piece.m_location; }
     void setLocation(int x, int y){ m_location = std::make_pair(x,y); }
@@ -21,7 +21,7 @@ private:
 
 struct Player{
 public:
-    Player();
+    Player(){m_score = 0;};
 private:
     std::pair<int, int> m_lastLocation;
     int m_score;
