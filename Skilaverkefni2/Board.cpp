@@ -28,9 +28,9 @@ Piece** Board::getBoard(){
         return m_tiles;
 }
 
-void Board::setPieceOnBoard(int col, int row, Piece piece)
+void Board::setPieceOnBoard(int row, int col, Piece piece)
 {
-    m_tiles[col][row].setType(piece.getType());
-    m_tiles[col][row].setOwner(piece.getOwner());
-    m_tiles[col][row].setLocation(col, row);
+    m_tiles[row][col].setType(piece.getType());
+    m_tiles[row][col].setOwner(piece.getOwner());
+    m_tiles[row][col].setLocation(col, row);
 }
