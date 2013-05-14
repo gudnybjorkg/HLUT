@@ -1,11 +1,12 @@
 # depslib dependency file v1.0
-1368455644 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
+1368465087 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
 	<iostream>
 	"game.h"
 	<map>
 
-1368456626 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
+1368467306 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
 	<vector>
+	<string>
 
 1353751060 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\main.cpp
 	<iostream>
