@@ -9,7 +9,7 @@ enum Game{ Breakthrough = 0, Ataxx = 1};
 class Piece{
 public:
     Piece(){m_type = '.'; m_owner = -1;}
-    Piece(char type){m_type = type; if (isupper(type)){setOwner(1);} else setOwner(0);} //if capital p1 else p2
+    Piece(char type){m_type = type; if (isupper(type)){setOwner(0);} else setOwner(1);} //if capital p1 else p2
     void setOwner(int owner){m_owner = owner;}
     int getOwner(){ return m_owner;}
     std::pair<int, int> getLocation(Piece piece){ return piece.m_location; }
@@ -28,8 +28,6 @@ private:
     std::pair<int, int> m_lastLocation;
     int m_score;
     std::vector<Piece> m_pieces;
-    int noOfPieces; //added inn, maybe easier to have this. Everytime we place a piece on the board add
-                    //to the count
 };
 
 class Board{
