@@ -10,14 +10,13 @@ enum Game{ Breakthrough = 0, Ataxx = 1};
 
 A class representing a piece on a board game to be played and strategized
 by the player.
-
 ---------------------------------------------------------------------------*/
 class Piece{
 public:
-    ///Destructor
+    ///Constructor
     Piece();
 
-    ///Destructor, initializing the type of the piece
+    ///Constructor, initializing the type of the piece
     Piece(char type);
 
     ///Set function for the owner of the piece
@@ -34,6 +33,7 @@ public:
 
     ///Destructor
     virtual ~Piece();
+    
 private:
     char m_type;
     int m_owner;
@@ -46,7 +46,7 @@ A class representing the player participating in a board game.
 ---------------------------------------------------------------------------*/
 class Player{
 public:
-    ///Destructor.
+    ///Constructor.
     Player();
 
     ///Sets the difficulty of the moves to be played.
@@ -64,8 +64,14 @@ private:
 };
 /*---------------------------------------------------------------------------
 
+
 A class representing the boad of size length x whidth. Each tile on the
 board holds a pawn that is to be moved around.
+
+class Board{
+public:
+/*Constructs a square board with a specific size of length and width.
+
            L  e  n  g  t  h
         W  |  |  |  |  |  |
         i  |  |  |  |  |  |
@@ -76,17 +82,18 @@ board holds a pawn that is to be moved around.
 ---------------------------------------------------------------------------*/
 struct Board{
 public:
-    ///Constructor
+    //Constructor
     Board(){}
-
-    ///Constructs a square board with a specific size of length and width.
-    Board(int length, int width);
-
-    ///Destructor
+    
+    //Destructor
     ~Board();
 
-    ///Returns the board
+    //Constructs a square board with a specific size of length and width.
+    Board(int length, int width);
+    
+    //Returns the board
     Piece** getBoard();
+
 private:
     int m_length;
     int m_width;
@@ -163,10 +170,19 @@ public:
     virtual void debug() = 0;
 
 private:
-    int m_turns;            /// Counts the number of turnes in the game
+    int m_turns;            /// Counts the number of turns in the game
     Board m_board;
     Player m_p1;
     Player m_p2;
+};
+
+class Atixx : public GamePlay{
+public:
+    Atixx();      //set up the board and the game for ataxx
+    virtual bool legalMove(int from_col, int from_row, int to_col, int to_row);
+private:
+    Board m_board;
+    
 };
 
 
