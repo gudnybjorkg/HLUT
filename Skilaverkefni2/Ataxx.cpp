@@ -12,7 +12,7 @@ Ataxx::Ataxx()
      
      m_board.setPieceOnBoard(7, 0, p1); //pawn set in left bottom corner
      m_board.setPieceOnBoard(0, 7, p1);  //pawn set in right top corner
-     m_board.setPieceOnBoard(0, 0 , p2); //left top corner
+     m_board.setPieceOnBoard(0, 0, p2); //left top corner
      m_board.setPieceOnBoard(7, 7, p2); //right bottom corner
 }
 
