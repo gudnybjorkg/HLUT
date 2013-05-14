@@ -29,9 +29,19 @@ public:
     //Constructs a square board with a specific size of length and width.
     Board(int length, int width);
 
+<<<<<<< HEAD
     //Returns the board
-    Piece** getBoard();
+    Piece** getTiles();
+    int getWidth();
+=======
+    //Returns the tiles
+    Piece** getTiles();
+    
+    Piece getPieceOnTile(int row, int col);
+    
+    void setPieceOnBoard(int row, int col, Piece piece);
 
+>>>>>>> 4083c5d7ce489326651027d0a404f9c41184a65d
 private:
     int m_length;
     int m_width;

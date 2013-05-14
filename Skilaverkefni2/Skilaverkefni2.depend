@@ -4,7 +4,7 @@
 	"game.h"
 	<stdlib.h>
 
-1368547855 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
+1368553498 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
 	"Piece.h"
 	"Board.h"
 	"Player.h"
@@ -14,7 +14,7 @@
 1353751060 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\main.cpp
 	<iostream>
 
-1368548042 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
+1368549750 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
 	"Ataxx.h"
 
 1368548029 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
@@ -23,7 +23,7 @@
 1368547983 c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.h
 	<iostream>
 
-1368548072 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
+1368553295 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
 	<iostream>
 	"Piece.h"
 
@@ -32,7 +32,7 @@
 	<vector>
 	"Piece.h"
 
-1368547606 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
+1368554390 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
 	"Board.h"
 
 1368547795 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
