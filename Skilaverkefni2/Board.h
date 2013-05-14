@@ -29,8 +29,8 @@ public:
     //Constructs a square board with a specific size of length and width.
     Board(int length, int width);
 
-    //Returns the board
-    Piece** getBoard();
+    //Returns the tiles
+    Piece** getTiles();
     
     void setPieceOnBoard(int col, int row, Piece piece);
 

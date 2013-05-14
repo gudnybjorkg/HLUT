@@ -7,6 +7,7 @@ Ataxx::Ataxx()
 }
 
  void Ataxx::start(){
+     m_board = Board(7,7);
      Piece p1('P');
      Piece p2('p');
      
@@ -18,10 +19,12 @@ Ataxx::Ataxx()
 
 bool Ataxx::legalMove(int from_col, int from_row, int to_col, int to_row)
 {
-    if ((-2<=(from_col - to_col) && (from_col - to_col) <=2) && (-2<=(from_row - to_row) && (from_row - to_row)<=2)) //checks if the move is 2 blocks away
-    {
-        return true;
+    if ((-2<=(from_col - to_col) && (from_col - to_col) <=2) && (-2<=(from_row - to_row) && (from_row - to_row)<=2)){ //checks if the move is 2 blocks away
+        if (m_board.getTiles()[to_row][to_col].getType() == '.') // if the tile is free
+        {
+            return true;
+        }
     }
     else
         return false;
-}
+};

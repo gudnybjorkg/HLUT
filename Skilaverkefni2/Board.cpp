@@ -24,7 +24,7 @@ Board::Board(int length, int width){
     }
 }
 
-Piece** Board::getBoard(){
+Piece** Board::getTiles(){
         return m_tiles;
 }
 
