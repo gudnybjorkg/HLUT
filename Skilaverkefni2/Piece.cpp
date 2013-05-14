@@ -22,8 +22,15 @@ void Piece::setType(char type){
 }
 
 int Piece::getOwner(){
-    return 1;
+    if (isupper(m_type))
+        {
+            return 1;
+        }
+        else return 0;
 }
+
+
+
 
 std::pair<int, int> Piece::getLocation(Piece piece){
     return piece.m_location;

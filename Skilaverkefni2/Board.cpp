@@ -28,6 +28,10 @@ Piece** Board::getTiles(){
         return m_tiles;
 }
 
+Piece Board::getPieceOnTile(int row, int col){
+    return m_tiles[row][col];
+}
+
 void Board::setPieceOnBoard(int row, int col, Piece piece)
 {
     m_tiles[row][col].setType(piece.getType());

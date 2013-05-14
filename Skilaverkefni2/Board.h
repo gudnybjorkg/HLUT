@@ -32,7 +32,9 @@ public:
     //Returns the tiles
     Piece** getTiles();
     
-    void setPieceOnBoard(int col, int row, Piece piece);
+    Piece getPieceOnTile(int row, int col);
+    
+    void setPieceOnBoard(int row, int col, Piece piece);
 
 private:
     int m_length;
