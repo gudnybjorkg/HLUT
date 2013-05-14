@@ -19,6 +19,8 @@ class Piece
     ///Set function for the owner of the piece
     void setOwner(int owner);
 
+    void setType(char type);
+    
     ///Returns the owner of the piece
     int getOwner();
 
@@ -28,6 +30,8 @@ class Piece
     ///Anitializes the location of the piece
     void setLocation(int x, int y);
 
+    char getType();
+    
     ///Destructor
     virtual ~Piece();
 

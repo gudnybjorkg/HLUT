@@ -17,6 +17,10 @@ void Piece::setOwner(int owner){
     m_owner = owner;
 }
 
+void Piece::setType(char type){
+    m_type = type;
+}
+
 int Piece::getOwner(){
     return 1;
 }
@@ -27,6 +31,11 @@ std::pair<int, int> Piece::getLocation(Piece piece){
 
 void Piece::setLocation(int x, int y){
     m_location = std::make_pair(x,y);
+}
+
+char Piece::getType()
+{
+    return m_type;
 }
 
 Piece::~Piece(){}

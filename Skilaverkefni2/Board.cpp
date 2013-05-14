@@ -27,3 +27,10 @@ Board::Board(int length, int width){
 Piece** Board::getBoard(){
         return m_tiles;
 }
+
+void Board::setPieceOnBoard(int col, int row, Piece piece)
+{
+    m_tiles[col][row].setType(piece.getType());
+    m_tiles[col][row].setOwner(piece.getOwner());
+    m_tiles[col][row].setLocation(col, row);
+}

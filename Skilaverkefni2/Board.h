@@ -31,6 +31,8 @@ public:
 
     //Returns the board
     Piece** getBoard();
+    
+    void setPieceOnBoard(int col, int row, Piece piece);
 
 private:
     int m_length;
