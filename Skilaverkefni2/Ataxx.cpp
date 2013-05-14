@@ -31,6 +31,7 @@ bool Ataxx::legalMove(int from_col, int from_row, int to_col, int to_row)
 void Ataxx::make(int from_col, int from_row, int to_col, int to_row){
     
     
+    m_board.getPieceOnTile(from_row, from_col)
     if (legalMove(from_col, from_row, to_col, to_row))
     {
         if ((-1<=(from_col - to_col) && (from_col - to_col) <=1) && (-1<=(from_row - to_row) && (from_row - to_row)<=1)){ //moving 1 block which is legal so the player clones
