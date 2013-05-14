@@ -1,102 +1,16 @@
 #ifndef GAME_H
 #define GAME_H
+#include "Piece.h"
+#include "Board.h"
+#include "Player.h"
+
 #include <vector>
 #include <string>
 /*
 An interface for implemtation of two-player board games.
 */
 enum Game{ Breakthrough = 0, Ataxx = 1};
-/*---------------------------------------------------------------------------
 
-A class representing a piece on a board game to be played and strategized
-by the player.
----------------------------------------------------------------------------*/
-class Piece{
-public:
-    ///Constructor
-    Piece();
-
-    ///Constructor, initializing the type of the piece
-    Piece(char type);
-
-    ///Set function for the owner of the piece
-    void setOwner(int owner);
-
-    ///Returns the owner of the piece
-    int getOwner();
-
-    ///Returns the location of the piece as a pair of coordinates, Example <0,1> represents the row 0 and column 1 on the board.
-    std::pair<int, int> getLocation(Piece piece);
-
-    ///Anitializes the location of the piece
-    void setLocation(int x, int y);
-
-    ///Destructor
-    virtual ~Piece();
-    
-private:
-    char m_type;
-    int m_owner;
-    std::pair<int,int> m_location;
-};
-/*---------------------------------------------------------------------------
-
-A class representing the player participating in a board game.
-
----------------------------------------------------------------------------*/
-class Player{
-public:
-    ///Constructor.
-    Player();
-
-    ///Sets the difficulty of the moves to be played.
-    void setDifficulty(std::string difficulty);
-
-    ///Destructor
-    ~Player();
-private:
-    std::pair<int, int> m_lastLocation;     ///For retrieval moves
-    std::pair<int, int> m_nextLocation;     ///For making the next move
-    int noPawns;
-    int m_score;
-    std::string m_difficulty;               /// Represents the difficulty of moves to be played
-    std::vector<Piece> m_pieces;
-};
-/*---------------------------------------------------------------------------
-
-
-A class representing the boad of size length x whidth. Each tile on the
-board holds a pawn that is to be moved around.
-
-Constructs a square board with a specific size of length and width.
-
-           L  e  n  g  t  h
-        W  |  |  |  |  |  |
-        i  |  |  |  |  |  |
-        d  |  |  |  |  |  |
-        t  |  |  |  |  |  |
-        h  |  |  |  |  |  |
-
----------------------------------------------------------------------------*/
-class Board{
-public:
-    //Constructor
-    Board(){}
-    
-    //Destructor
-    ~Board();
-
-    //Constructs a square board with a specific size of length and width.
-    Board(int length, int width);
-    
-    //Returns the board
-    Piece** getBoard();
-
-private:
-    int m_length;
-    int m_width;
-    Piece **m_tiles;
-};
 /*---------------------------------------------------------------------------
 
 The interface for implementing a two-player board game with a set of rules and
@@ -152,8 +66,8 @@ public:
     */
     virtual void level(std::string difficulty) = 0;
 
-    ///Displays the evaluation value of the current board state
-    virtual void evaluate(Board board) = 0;
+    ///Returns the evaluation value of the current board state
+    virtual int evaluate(Board board) = 0;
 
     /*
     The computer plays for the player to move using the current difficulty level
@@ -174,14 +88,6 @@ private:
     Player m_p2;
 };
 
-class Atixx : public GamePlay{
-public:
-    Atixx();      //set up the board and the game for ataxx
-    virtual bool legalMove(int from_col, int from_row, int to_col, int to_row);
-private:
-    Board m_board;
-    
-};
 
 
 #endif //GAME_H
