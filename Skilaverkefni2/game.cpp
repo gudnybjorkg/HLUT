@@ -1,6 +1,6 @@
 #include <iostream>
 #include "game.h"
-#include <map>
+#include <stdlib.h>
 using namespace std;
 
 /*-------------------------------------------------------------
@@ -30,6 +30,10 @@ Piece::Piece(){
 
 Piece::Piece(char type){
     m_type = type;
+    if(isupper(type))
+        m_owner = 0;
+    else
+        m_owner = 1;
 }
 
 void Piece::setOwner(int owner){
@@ -55,24 +59,31 @@ Piece::~Piece(){}
 Implementation of the Board class
 
 ---------------------------------------------------------------*/
+Board::~Board(){
+    for(int i = 0; i < m_width; i++)
+        delete [] m_tiles[i];
+    delete [] m_tiles;
+}
 Board::Board(int length, int width){
     m_length = length;
     m_width = width;
-    tiles = new Piece*[m_width];
+    m_tiles = new Piece*[m_width];
     //Creating the board
     for(int i = 0; i < m_width; i++){
-        tiles[i] = new Piece[m_length];
+        m_tiles[i] = new Piece[m_length];
     }
     //Publicating the board with default setup og pieces
     for(int j = 0; j < m_width; j++){
         for(int k = 0; k < m_length; k++){
-            tiles[j][k] = Piece('.');
-            tiles[j][k].setOwner(-1);
-            tiles[j][k].setLocation(j,k);
+            m_tiles[j][k] = Piece('.');
+            m_tiles[j][k].setOwner(-1);
+            m_tiles[j][k].setLocation(j,k);
         }
     }
 }
-
+Piece** Board::getBoard(){
+    return m_tiles;
+}
 /*-------------------------------------------------------------
 
 Implementation of the GamePlay class
@@ -87,6 +98,11 @@ GamePlay::GamePlay(){
 GamePlay::~GamePlay(){
     //~Board();
 }
+///Returns the board
+Board GamePlay::getBoard(){
+    return m_board;
+}
+
 ///Outputs the list of games available to play
 void GamePlay::listOfGames(){
     for(unsigned int i = 0; i < sizeof(Game); i++){
@@ -99,5 +115,11 @@ void GamePlay::listOfGames(){
 }
 
 ///Quits the game play
-void quit();
-
+void GamePlay::quit(){
+    cout << "Are you sure you want to quit the game? (y/n)" << endl;
+    char ans;
+    cin >> ans;
+    if(ans == 'y' || ans == 'Y')
+        exit(0);
+    else return;
+}
