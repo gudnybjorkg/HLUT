@@ -68,9 +68,7 @@ private:
 A class representing the boad of size length x whidth. Each tile on the
 board holds a pawn that is to be moved around.
 
-class Board{
-public:
-/*Constructs a square board with a specific size of length and width.
+Constructs a square board with a specific size of length and width.
 
            L  e  n  g  t  h
         W  |  |  |  |  |  |
@@ -80,7 +78,7 @@ public:
         h  |  |  |  |  |  |
 
 ---------------------------------------------------------------------------*/
-struct Board{
+class Board{
 public:
     //Constructor
     Board(){}
