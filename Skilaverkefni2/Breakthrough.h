@@ -15,6 +15,7 @@ class Breakthrough : GamePlay
         virtual void go();
         virtual void retract(Player player);
         virtual void legal(Piece piece);
+        virtual void display();
 };
 
 #endif // BREAKTHROUGH_H
