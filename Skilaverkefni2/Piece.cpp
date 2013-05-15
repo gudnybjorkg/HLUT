@@ -1,5 +1,7 @@
 #include "Piece.h"
 #include <iostream>
+using namespace std;
+
 Piece::Piece(){
     m_type = '.';
     m_owner = -1;
@@ -25,7 +27,7 @@ char Piece::getType(){
     return m_type;
 }
 
-std::pair<int, int> Piece::getLocation(){
+pair<int, int> Piece::getLocation(){
     return m_location;
 }
 
