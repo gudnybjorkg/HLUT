@@ -6,6 +6,8 @@ using namespace std;
 GamePlay::GamePlay(){
     m_p1 = Player();
     m_p2 = Player();
+    m_p1.setId(0);
+    m_p2.setId(1);
     m_turns = 0;
 }
 

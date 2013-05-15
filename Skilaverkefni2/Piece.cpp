@@ -4,27 +4,32 @@ using namespace std;
 
 Piece::Piece(){
     m_type = '.';
-    m_owner = -1;
+    m_owner.setId(-1);
 }
 
 Piece::Piece(char type){
     m_type = type;
     if(isupper(type))
-        m_owner = 0;
+        m_owner.setId(0);
     else
-        m_owner = 1;
+        m_owner.setId(1);
 }
 
-void Piece::setOwner(int owner){
+void Piece::setOwner(Player owner){
     m_owner = owner;
 }
 
-int Piece::getOwner(){
+Player Piece::getOwner(){
     return m_owner;
 }
 
 char Piece::getType(){
     return m_type;
+}
+
+///Sets the type
+void Piece::setType(Piece piece){
+    m_type = piece.getType();
 }
 
 pair<int, int> Piece::getLocation(){

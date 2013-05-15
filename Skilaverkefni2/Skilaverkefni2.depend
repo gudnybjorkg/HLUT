@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1368547801 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
+1368630769 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
 	<iostream>
 	"game.h"
 	<stdlib.h>
@@ -20,34 +20,34 @@
 1368615867 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
 	"game.h"
 
-1368619903 c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.h
+1368636079 c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.h
 	<iostream>
+	"Player.h"
 
-1368615884 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
+1368635922 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
 	<iostream>
 	"Piece.h"
 
-1368548180 c:\users\gudny\documents\github\hlut\skilaverkefni2\player.h
+1368634114 c:\users\gudny\documents\github\hlut\skilaverkefni2\player.h
 	<iostream>
 	<vector>
-	"Piece.h"
 
-1368616976 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
+1368629712 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
 	"Board.h"
 
-1368619797 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
+1368635813 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
 	"Breakthrough.h"
 	<utility>
 	<algorithm>
 
-1368618969 c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.h
+1368634781 c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.h
 	"game.h"
 	<iostream>
 
-1368548158 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
+1368631501 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
 	"Piece.h"
 	<iostream>
 
-1368547668 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\player.cpp
+1368634086 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\player.cpp
 	"Player.h"
 

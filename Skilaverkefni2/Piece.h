@@ -1,6 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 #include <iostream>
+#include "Player.h"
 /*---------------------------------------------------------------------------
 
 A class representing a piece on a board game to be played and strategized
@@ -17,14 +18,17 @@ class Piece
     Piece(char type);
 
     ///Set function for the owner of the piece
-    void setOwner(int owner);
+    void setOwner(Player owner);
 
     ///Returns the owner of the piece
-    int getOwner();
+    Player getOwner();
 
 
     ///Returns the type of the piece
     char getType();
+
+    ///Sets the type
+    void setType(Piece piece);
 
     ///Returns the location of the piece as a pair of coordinates, Example <0,1> represents the row 0 and column 1 on the board.
     std::pair<int,int> getLocation();
@@ -37,7 +41,7 @@ class Piece
 
 private:
     char m_type;
-    int m_owner;
+    Player m_owner;
     std::pair<int,int> m_location;
 };
 

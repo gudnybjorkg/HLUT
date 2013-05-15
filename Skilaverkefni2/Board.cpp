@@ -18,10 +18,17 @@ Board::Board(int length, int width){
     for(int j = 0; j < m_width; j++){
         for(int k = 0; k < m_length; k++){
             m_tiles[j][k] = Piece('.');
-            m_tiles[j][k].setOwner(-1);
+            //m_tiles[j][k].setOwner(NULL);
             m_tiles[j][k].setLocation(j,k);
         }
     }
+}
+
+void Board::setPieceOnBoard(int col, int row, Piece piece)
+{
+    m_tiles[col][row].setType(piece.getType());
+    m_tiles[col][row].setOwner(piece.getOwner());
+    m_tiles[col][row].setLocation(col, row);
 }
 
 Piece** Board::getBoard(){
