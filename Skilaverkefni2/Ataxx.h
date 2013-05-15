@@ -7,6 +7,10 @@ public:
     Ataxx();      //set up the board and the game for ataxx
     virtual bool legalMove(int from_col, int from_row, int to_col, int to_row);
     virtual void make(int from_col, int from_row, int to_col, int to_row);
+    virtual void go();
+    virtual void start();
+    void convertPiece(int row, int col, Player p, Player opp);
+
 private:
     Board m_board;
 };

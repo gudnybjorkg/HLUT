@@ -33,7 +33,7 @@ public:
     Piece** getBoard();
 
     //Sets the piece to the destination <row, col>
-    void setPieceOnBoard(int col, int row, Piece piece);
+    void setPieceOnBoard(int row, int col, Piece piece);
 
 private:
     int m_length;

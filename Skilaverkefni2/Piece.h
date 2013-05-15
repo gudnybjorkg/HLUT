@@ -28,7 +28,7 @@ class Piece
     char getType();
 
     ///Sets the type
-    void setType(Piece piece);
+    void setType(char type);
 
     ///Returns the location of the piece as a pair of coordinates, Example <0,1> represents the row 0 and column 1 on the board.
     std::pair<int,int> getLocation();

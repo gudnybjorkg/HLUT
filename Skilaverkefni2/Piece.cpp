@@ -29,8 +29,8 @@ char Piece::getType(){
 }
 
 ///Sets the type
-void Piece::setType(Piece piece){
-    m_type = piece.getType();
+void Piece::setType(char type){
+    m_type = type;
 }
 
 pair<int, int> Piece::getLocation(){
