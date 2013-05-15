@@ -1,6 +1,7 @@
 #include "Breakthrough.h"
 #include <utility>
 #include <algorithm>
+
 using namespace std;
 
 Breakthrough::Breakthrough() : GamePlay()
@@ -40,6 +41,7 @@ void Breakthrough::make(int from_col, int from_row, int to_col, int to_row)
     p.setNextLocation(to_row, to_col);
 }
 
+<<<<<<< HEAD
 void Breakthrough::go()
 {
     Player p;
@@ -74,6 +76,12 @@ void Breakthrough::go()
     m_board.getBoard()[to_row][to_col].setOwner(p);
     m_board.getBoard()[to_row][to_col] = m_board.getBoard()[from_row][from_col].getType();
     m_board.getBoard()[from_row][from_col].setOwner(opponent);
+=======
+void Breakthrough::make(int from_col, int from_row, int to_col, int to_row){
+    int owner = m_board.getBoard()[from_row][from_col].getOwner();
+    char value = m_board.getBoard()[from_row][from_col].getType();
+    m_board.getBoard()[from_row][from_col].setOwner(-1);
+>>>>>>> 2aa76b602cb4fd061da5a418fc6ef45874fe8a76
     m_board.getBoard()[from_row][from_col] = '.';
 
     m_turns++;
@@ -152,8 +160,13 @@ void Breakthrough::start()
         m_board.getBoard()[7][i] = m_p2.getType();
     }
 }
+<<<<<<< HEAD
 bool Breakthrough::legalMove(Piece p, pair<int, int> destination)
 {
+=======
+
+bool Breakthrough::legalMove(Piece p, pair<int, int> destination){
+>>>>>>> 2aa76b602cb4fd061da5a418fc6ef45874fe8a76
     pair<int,int> currentLocation = p.getLocation();
     int localY = currentLocation.first;
     int localX = currentLocation.second;

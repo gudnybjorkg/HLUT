@@ -14,10 +14,10 @@
 1353751060 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\main.cpp
 	<iostream>
 
-1368615884 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
+1368636424 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
 	"Ataxx.h"
 
-1368615867 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
+1368636256 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
 	"game.h"
 
 1368636079 c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.h
@@ -32,7 +32,7 @@
 	<iostream>
 	<vector>
 
-1368629712 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
+1368636079 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
 	"Board.h"
 
 1368635813 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
@@ -44,7 +44,7 @@
 	"game.h"
 	<iostream>
 
-1368631501 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
+1368636079 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
 	"Piece.h"
 	<iostream>
 
