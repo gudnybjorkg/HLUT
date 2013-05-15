@@ -48,3 +48,37 @@
 1368547668 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\player.cpp
 	"Player.h"
 
+1368455036 source:c:\users\raggi\documents\github\hlut\skilaverkefni2\main.cpp
+	<iostream>
+
+1368549852 source:c:\users\raggi\documents\github\hlut\skilaverkefni2\board.cpp
+	"Board.h"
+
+1368549852 c:\users\raggi\documents\github\hlut\skilaverkefni2\board.h
+	<iostream>
+	"Piece.h"
+
+1368619547 c:\users\raggi\documents\github\hlut\skilaverkefni2\piece.h
+	<iostream>
+
+1368619804 source:c:\users\raggi\documents\github\hlut\skilaverkefni2\breakthrough.cpp
+	"Breakthrough.h"
+	<iostream>
+	<utility>
+	<algorithm>
+
+1368618137 c:\users\raggi\documents\github\hlut\skilaverkefni2\breakthrough.h
+	"game.h"
+
+1368616672 c:\users\raggi\documents\github\hlut\skilaverkefni2\game.h
+	"Piece.h"
+	"Board.h"
+	"Player.h"
+	<vector>
+	<string>
+
+1368549852 c:\users\raggi\documents\github\hlut\skilaverkefni2\player.h
+	<iostream>
+	<vector>
+	"Piece.h"
+

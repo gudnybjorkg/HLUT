@@ -1,15 +1,8 @@
 #include "Breakthrough.h"
 #include <iostream>
 #include <utility>
-#include <tuple>
-#include <fstream>
-#include <cstdlib>
-#include <ctime>
-#include <string>
-#include <set>
-#include <list>
 #include <algorithm>
-#include <map>
+
 
 
 
@@ -21,11 +14,11 @@ Breakthrough::Breakthrough() : GamePlay()
 
 bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
 {
-    std::pair<int,int> currentLocation = p.getLocation;
-    int localY = std::get<0>(currentLocation);
-    int localX = std::get<1>(currentLocation);
-    int destY = std::get<0>(destination);
-    int destX = std::get<1>(destination);
+    std::pair<int,int> currentLocation = p.getLocation();
+    int localY = currentLocation.first;//std::get<0>(currentLocation);
+    int localX = currentLocation.second;//std::get<1>(currentLocation);
+    int destY = destination.first;//std::get<0>(destination);
+    int destX = destination.second;//std::get<1>(destination);
     Piece** the_pieces = m_board.getBoard();
     Piece destPiece = the_pieces[destY][destX];
 

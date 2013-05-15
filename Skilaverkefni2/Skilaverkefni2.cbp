@@ -7,8 +7,8 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/Skilaverkefni2" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
+				<Option output="bin\Debug\Skilaverkefni2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -16,8 +16,8 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/Skilaverkefni2" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
+				<Option output="bin\Release\Skilaverkefni2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -32,6 +32,16 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Ataxx.cpp" />
+		<Unit filename="Ataxx.h" />
+		<Unit filename="Board.cpp" />
+		<Unit filename="Board.h" />
+		<Unit filename="Breakthrough.cpp" />
+		<Unit filename="Breakthrough.h" />
+		<Unit filename="Piece.cpp" />
+		<Unit filename="Piece.h" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.h" />
 		<Unit filename="game.cpp" />
 		<Unit filename="game.h" />
 		<Unit filename="main.cpp" />

@@ -26,7 +26,7 @@ class Piece
     char getType();
 
     ///Returns the location of the piece as a pair of coordinates, Example <0,1> represents the row 0 and column 1 on the board.
-    std::pair<int,int> getLocation(Piece piece);
+    std::pair<int,int> getLocation();
 
     ///Anitializes the location of the piece
     void setLocation(int x, int y);
