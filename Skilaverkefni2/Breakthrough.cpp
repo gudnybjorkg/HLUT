@@ -1,4 +1,5 @@
 #include "Breakthrough.h"
+<<<<<<< HEAD
 #include <utility>
 #include <algorithm>
 using namespace std;
@@ -27,6 +28,26 @@ void Breakthrough::start(){
         m_board.getBoard()[7][i].setOwner(1);
         m_board.getBoard()[7][i] = 'P';
     }
+=======
+#include <iostream>
+#include <utility>
+#include <tuple>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <set>
+#include <list>
+#include <algorithm>
+#include <map>
+
+
+
+
+Breakthrough::Breakthrough() : GamePlay()
+{
+    //ctor
+>>>>>>> 25de843d02efc057d91b97c1f738130e6b3bfb59
 }
 
 bool Breakthrough::legalMove(Piece p, pair<int, int> destination){
