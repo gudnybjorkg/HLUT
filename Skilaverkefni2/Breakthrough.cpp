@@ -1,17 +1,40 @@
 #include "Breakthrough.h"
+#include <utility>
+#include <algorithm>
+using namespace std;
 
-Breakthrough::Breakthrough()
-{
-    //ctor
+Breakthrough::Breakthrough() : GamePlay(){
+    m_board = Board(8,8);
+}
+void Breakthrough::make(int from_col, int from_row, int to_col, int to_row){
+    int owner = m_board.getBoard()[from_row][from_col].getOwner();
+    char value = m_board.getBoard()[from_row][from_col].getType();
+    m_board.getBoard()[from_row][from_col].setOwner(-1);
+    m_board.getBoard()[from_row][from_col] = '.';
+    m_board.getBoard()[to_row][to_col].setOwner(owner);
+    m_board.getBoard()[to_row][to_col] = value;
+}
+void Breakthrough::start(){
+    for(int i = 0; i < 8; ++i){
+        //Player 1
+        m_board.getBoard()[0][i].setOwner(0);
+        m_board.getBoard()[0][i] = 'p';
+        m_board.getBoard()[1][i].setOwner(0);
+        m_board.getBoard()[1][i] = 'p';
+        //Player 2
+        m_board.getBoard()[6][i].setOwner(1);
+        m_board.getBoard()[6][i] = 'P';
+        m_board.getBoard()[7][i].setOwner(1);
+        m_board.getBoard()[7][i] = 'P';
+    }
 }
 
-bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
-{
-    std::pair<int,int> currentLocation = p.getLocation;
-    int localY = std::get<0>(currentLocation);
-    int localX = std::get<1>(currentLocation);
-    int destY = std::get<0>(destination);
-    int destX = std::get<1>(destination);
+bool Breakthrough::legalMove(Piece p, pair<int, int> destination){
+    pair<int,int> currentLocation = p.getLocation(p);
+    int localY = currentLocation.first;//get<0>(currentLocation);
+    int localX = currentLocation.second;//get<1>(currentLocation);
+    int destY = destination.first;//get<0>(destination);
+    int destX = destination.second;//get<1>(destination);
     Piece** the_pieces = m_board.getBoard();
     Piece destPiece = the_pieces[destY][destX];
 
@@ -36,7 +59,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else if(destX > localX)
         {
-             if((destx - localX) != 1)
+             if((destX - localX) != 1)
              {
                  return false;
              }
@@ -48,7 +71,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else
         {
-             if((destx - localX) != 0)
+             if((destX - localX) != 0)
              {
                  return false;
              }
@@ -82,7 +105,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else if(destX > localX)
         {
-             if((destx - localX) != 1)
+             if((destX - localX) != 1)
              {
                  return false;
              }
@@ -94,7 +117,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else
         {
-             if((destx - localX) != 0)
+             if((destX - localX) != 0)
              {
                  return false;
              }

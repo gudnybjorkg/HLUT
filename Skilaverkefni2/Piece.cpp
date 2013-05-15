@@ -21,6 +21,10 @@ int Piece::getOwner(){
     return 1;
 }
 
+char Piece::getType(){
+    return m_type;
+}
+
 std::pair<int, int> Piece::getLocation(Piece piece){
     return piece.m_location;
 }
