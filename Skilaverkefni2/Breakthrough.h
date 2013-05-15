@@ -2,7 +2,7 @@
 #define BREAKTHROUGH_H
 #include "game.h"
 
-class Breakthrough
+class Breakthrough : GamePlay
 {
     public:
         Breakthrough();

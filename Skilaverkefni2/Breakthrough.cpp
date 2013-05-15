@@ -1,6 +1,20 @@
 #include "Breakthrough.h"
+#include <iostream>
+#include <utility>
+#include <tuple>
+#include <fstream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+#include <set>
+#include <list>
+#include <algorithm>
+#include <map>
 
-Breakthrough::Breakthrough()
+
+
+
+Breakthrough::Breakthrough() : GamePlay()
 {
     //ctor
 }
@@ -36,7 +50,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else if(destX > localX)
         {
-             if((destx - localX) != 1)
+             if((destX - localX) != 1)
              {
                  return false;
              }
@@ -48,7 +62,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else
         {
-             if((destx - localX) != 0)
+             if((destX - localX) != 0)
              {
                  return false;
              }
@@ -82,7 +96,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else if(destX > localX)
         {
-             if((destx - localX) != 1)
+             if((destX - localX) != 1)
              {
                  return false;
              }
@@ -94,7 +108,7 @@ bool Breakthrough::legalMove(Piece p, std::pair<int, int> destination)
         }
         else
         {
-             if((destx - localX) != 0)
+             if((destX - localX) != 0)
              {
                  return false;
              }
