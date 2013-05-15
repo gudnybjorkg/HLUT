@@ -1,4 +1,5 @@
 #include "Board.h"
+using namespace std;
 
 Board::~Board(){
     for(int i = 0; i < m_width; i++)
@@ -15,10 +16,10 @@ Board::Board(int length, int width){
         m_tiles[i] = new Piece[m_length];
     }
     //Publicating the board with default setup og pieces
-    for(int j = 0; j < m_width; j++){
+    for(int j = 0; j < m_length; j++){
         for(int k = 0; k < m_length; k++){
-            m_tiles[j][k] = Piece('.');
-            //m_tiles[j][k].setOwner(NULL);
+            m_tiles[j][k] = Piece();
+            m_tiles[j][k].setOwner(Player());
             m_tiles[j][k].setLocation(j,k);
         }
     }
@@ -32,5 +33,5 @@ void Board::setPieceOnBoard(int col, int row, Piece piece)
 }
 
 Piece** Board::getBoard(){
-        return m_tiles;
+    return m_tiles;
 }

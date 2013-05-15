@@ -13,11 +13,6 @@ Breakthrough::Breakthrough() : GamePlay()
 
 }
 
-int Breakthrough::getNoPieces(Player player)
-{
-    return player.getNoPawns();
-}
-
 void Breakthrough::make(int from_col, int from_row, int to_col, int to_row)
 {
     if(!legalMove(m_board.getBoard()[from_row][from_col],pair<int,int>(to_row,to_col)))
@@ -113,7 +108,8 @@ void Breakthrough::retract(Player player)
         m_board.getBoard()[prevOp.first][prevOp.second].setOwner(opponent);
         m_board.getBoard()[prevOp.first][prevOp.second] = opponent.getType();
     }
-    else{
+    else
+    {
         //Move the opponent back to it's old location
         m_board.getBoard()[prevOp.first][prevOp.second].setOwner(opponent);
         m_board.getBoard()[prevOp.first][prevOp.second] = m_board.getBoard()[nextOp.first][nextOp.second];
@@ -140,16 +136,23 @@ void Breakthrough::start()
 {
     for(int i = 0; i < 8; ++i)
     {
+        cout << i+1 << " tilraun byrjar" << '\n';
+        Piece **temp = m_board.getBoard();
+        cout << temp[0][0].getType();
         //Player 1
-        m_board.getBoard()[0][i].setOwner(m_p1);
+        (temp[0][i]).setOwner(m_p1);
+        cout << "Test 1" << endl;
         m_board.getBoard()[0][i] = m_p1.getType();
+        cout << "Test 2" << endl;
         m_board.getBoard()[1][i].setOwner(m_p1);
         m_board.getBoard()[1][i] = m_p1.getType();
+        cout << i+1 << " tilraun midja" << '\n';
         //Player 2
         m_board.getBoard()[6][i].setOwner(m_p2);
         m_board.getBoard()[6][i] = m_p2.getType();
         m_board.getBoard()[7][i].setOwner(m_p2);
         m_board.getBoard()[7][i] = m_p2.getType();
+        cout << i+1 << " endar" << '\n';
     }
 }
 bool Breakthrough::legalMove(Piece p, pair<int, int> destination)
@@ -164,11 +167,13 @@ bool Breakthrough::legalMove(Piece p, pair<int, int> destination)
 
     Player player;
     Player opponent;
-    if(m_turns % 2 == 0){
+    if(m_turns % 2 == 0)
+    {
         player = m_p1;
         opponent = m_p2;
     }
-    else{
+    else
+    {
         player = m_p2;
         opponent = m_p1;
     }
@@ -322,7 +327,7 @@ void Breakthrough::legal(Piece piece)
 }
 void Breakthrough::display()
 {
-        Piece** p = m_board.getBoard();
+    //Piece** p = m_board.getBoard();
 
     cout << "                              " << '\n';
     cout << "     0  1  2  3  4  5  6  7   " << '\n';
@@ -330,12 +335,12 @@ void Breakthrough::display()
 
     for(int i = 0; i < 8; i++)
     {
-    cout << "    |   |   |   |   |   |   |   |   |  " << '\n';
-    cout << "    |";
+        cout << "    |   |   |   |   |   |   |   |   |  " << '\n';
+        cout << "    |";
 
-        for(int j = 0; j<8;j++)
+        for(int j = 0; j < 8; j++)
         {
-            cout << " " << p[i][j].getType() << " |";
+            cout << " " << m_board.getBoard()[i][j].getType() << " |";
         }
         cout << '\n';
         cout << "    |   |   |   |   |   |   |   |   |  " << '\n';

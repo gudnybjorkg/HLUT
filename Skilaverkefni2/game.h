@@ -9,7 +9,7 @@
 /*
 An interface for implemtation of two-player board games.
 */
-enum Game{ Breakthrough = 0, Ataxx = 1};
+enum Game{ breakthrough = 0, ataxx = 1};
 
 /*---------------------------------------------------------------------------
 
@@ -41,7 +41,7 @@ public:
     virtual void start() = 0;
 
     ///Returns the number of pieces for the corresponding player
-    virtual int getNoPieces(Player player) = 0;
+    virtual int getNoPieces(Player player);
 
     ///Outputs all legal moves for the corresponding piece to perform.
     virtual void legal(Piece piece) = 0;

@@ -3,6 +3,7 @@ using namespace std;
 Player::Player(){
     m_score = 0;
     m_killed = false;
+    m_type = '.';
     m_id = -1;
 }
 
