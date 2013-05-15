@@ -19,22 +19,19 @@ class Piece
     ///Set function for the owner of the piece
     void setOwner(int owner);
 
-    void setType(char type);
-    
     ///Returns the owner of the piece
     int getOwner();
-    
-    ///Returns the owner of the piece on a specific tile
-    int getPieceOnTile(int col, int row);
+
+
+    ///Returns the type of the piece
+    char getType();
 
     ///Returns the location of the piece as a pair of coordinates, Example <0,1> represents the row 0 and column 1 on the board.
-    std::pair<int,int> getLocation(Piece piece);
+    std::pair<int,int> getLocation();
 
     ///Anitializes the location of the piece
     void setLocation(int x, int y);
 
-    char getType();
-    
     ///Destructor
     virtual ~Piece();
 
