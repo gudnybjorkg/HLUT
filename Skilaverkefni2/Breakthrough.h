@@ -6,6 +6,7 @@ class Breakthrough
 {
     public:
         Breakthrough();
+        virtual bool legalMove(Piece p, std::pair<int, int> destination);
         virtual ~Breakthrough();
     protected:
     private:
