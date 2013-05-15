@@ -81,7 +81,7 @@ public:
     ///By default the debug	should be off.
     virtual void debug() = 0;
 
-protected:
+private:
     int m_turns;            /// Counts the number of turns in the game
     Board m_board;
     Player m_p1;
