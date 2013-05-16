@@ -33,7 +33,7 @@ public:
     Piece** getBoard();
 
     //Sets the piece to the destination <row, col>
-    void setPieceOnBoard(int row, int col, Piece piece);
+    void setPieceOnBoard(int row, int col, Player playa);
 
     ///Asignment operator
     Board& operator =(const Board& rhs){

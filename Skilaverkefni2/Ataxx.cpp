@@ -1,5 +1,5 @@
 #include "Ataxx.h"
-#include <math.h>
+#include <cmath>
 using namespace std;
 
 Ataxx::Ataxx() : GamePlay()
@@ -13,21 +13,21 @@ Ataxx::Ataxx() : GamePlay()
 }
 
 void Ataxx::start(){
-    Piece p1('P');
-    Piece p2('p');
-    Piece empty('.');
+    //Piece p1('P');
+    //Piece p2('p');
     
-    for (int i=0; i < 7; i++)
-    {
-        for (int j=0; j < 7; j++)  ///initialize board
-        {
-            m_board.setPieceOnBoard(i, j, empty);
-        }
-    }
-    m_board.setPieceOnBoard(0, 7, p1); ///player 1 set in left bottom corner
-    m_board.setPieceOnBoard(7, 0, p1); ///player 1 set in right top corner
-    m_board.setPieceOnBoard(0, 0, p2); ///player 2 set in right bottom corner
-    m_board.setPieceOnBoard(7, 7, p2); ///player 2 set in right bottom corner
+    m_board.getBoard()[0][7].setOwner(m_p1);
+    m_board.getBoard()[0][7] = m_p1.getType();
+    m_board.getBoard()[7][0].setOwner(m_p1);
+    m_board.getBoard()[7][0] = m_p1.getType();
+    m_board.getBoard()[0][0].setOwner(m_p2);
+    m_board.getBoard()[0][0] = m_p2.getType();
+    m_board.getBoard()[7][7].setOwner(m_p2);
+    m_board.getBoard()[7][7] = m_p2.getType();
+    //m_board.setPieceOnBoard(0, 7, m_p1); ///player 1 set in left bottom corner
+    //m_board.setPieceOnBoard(7, 0, m_p1); ///player 1 set in right top corner
+    //m_board.setPieceOnBoard(0, 0, m_p2); ///player 2 set in right bottom corner
+    //m_board.setPieceOnBoard(7, 7, m_p2); ///player 2 set in right bottom corner
 }
 
 bool Ataxx::legalMove(Piece p, std::pair<int, int> destination)
@@ -90,17 +90,17 @@ void Ataxx::go()
     int from_col = from.second;
     int to_row = to.first;
     int to_col = to.second;
-    Piece pie = m_board.getBoard()[from_row][from_col];
-    Piece empty('.');
+    Player playa = m_board.getBoard()[from_row][from_col].getOwner();
+    Player empty;
     
     
     if ((-1<=(from_col - to_col) && (from_col - to_col) <=1) && (-1<=(from_row - to_row) && (from_row - to_row)<=1))  ///checks if the   move is 1 block away
     {
-        m_board.setPieceOnBoard(to_row, to_col, pie); ///no need to remove pawn since we are cloning
+        m_board.setPieceOnBoard(to_row, to_col, playa); ///no need to remove pawn since we are cloning
     }
     else /// the move must be 2 blocks away since its legal and not 1 block away
     {
-        m_board.setPieceOnBoard(to_row, to_col, pie); ///moves the piece for the player
+        m_board.setPieceOnBoard(to_row, to_col, playa); ///moves the piece for the player
         m_board.setPieceOnBoard(from_row, from_col, empty); ///removes the old since we are not moving 1
     }
     
@@ -154,6 +154,31 @@ void Ataxx::retract(Player player)
     }
     
     m_turns--;*/
+}
+
+void Ataxx::display()
+{
+    Piece** p = m_board.getBoard();
+    
+    cout << "                              " << '\n';
+    cout << "      0   1   2   3   4   5   6  " << '\n';
+    cout << "    ____________________________ " <<'\n';
+    
+    for(int i = 0; i < 7; i++)
+    {
+        cout << "    |   |   |   |   |   |   |   | " << '\n';
+        cout << " " << i <<"  |";
+        
+        for(int j = 0; j < 7; j++)
+        {
+            cout << " " << p[i][j].getType() << " |";
+        }
+        cout << '\n';
+        cout << "    |   |   |   |   |   |   |   | " << '\n';
+        cout << "    _____________________________ " <<'\n';
+        
+    }
+    
 }
 
 
