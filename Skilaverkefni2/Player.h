@@ -51,11 +51,39 @@ public:
     ///Get id
     int getId();
 
-    ///Sets the number of pawns
-    void setNoPawns(int value);
+    ///Assignment operator
+    Player& operator =(const Player& rhs){
+        m_id = rhs.m_id;
+        m_type = rhs.m_type;
+        m_lastLocation.first = rhs.m_lastLocation.first;
+        m_lastLocation.second = rhs.m_lastLocation.second;
+        //std::cout << "ASSIGNMENT GAUR " << m_lastLocation.first << " " << m_lastLocation.second;
+        m_nextLocation = rhs.m_nextLocation;
+        noPawns = rhs.noPawns;
+        m_score = rhs.m_score;
+        m_killed = rhs.m_killed;
+        m_difficulty = rhs.m_difficulty;
+        return *this;
+    }
+
+    ///Copy constructor
+    Player(const Player& rhs){
+        m_id = rhs.m_id;
+        m_type = rhs.m_type;
+        m_lastLocation = rhs.m_lastLocation;
+        m_nextLocation = rhs.m_nextLocation;
+        noPawns = rhs.noPawns;
+        m_score = rhs.m_score;
+        m_killed = rhs.m_killed;
+        m_difficulty = rhs.m_difficulty;
+    }
 
     ///Destructor
     ~Player();
+
+    ///sets the number of pawns
+    void setNoPawns(int value);
+
 private:
     int m_id;
     char m_type;

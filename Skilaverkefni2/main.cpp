@@ -24,4 +24,20 @@ int main()
     while(gameNr != 1);
     game->start();
     game->display();
+
+    int from_row;
+    int to_row;
+    int from_col;
+    int to_col;
+    do{
+        cout << "enter a movement: (from row, from col, to row, to col)";
+        cin  >> from_row;
+        cin >> from_col;
+        cin >> to_row;
+        cin >> to_col;
+        //game->legal(from_row, from_col);
+        game->make(from_row, from_col, to_row, to_col);
+        game->go();
+        game->display();
+    }while(true);
 }

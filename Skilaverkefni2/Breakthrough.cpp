@@ -13,67 +13,83 @@ Breakthrough::Breakthrough() : GamePlay()
 
 }
 
-void Breakthrough::make(int from_col, int from_row, int to_col, int to_row)
+void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
 {
-    if(!legalMove(m_board.getBoard()[from_row][from_col],pair<int,int>(to_row,to_col)))
+    /*if(!legalMove(m_board.getBoard()[from_row][from_col],pair<int,int>(to_row,to_col)))
     {
         cout << "This is not a legal move, please try again." << endl;
         return;
-    }
+    }*/
     //Finding the player which turn it is
     Player p;
     if(m_turns % 2 == 0)
     {
-        p = m_p1;
+        m_p1.setLastLocation(from_row,from_col);
+        m_p1.setNextLocation(to_row, to_col);
     }
     else
     {
-        p = m_p2;
+        m_p2.setLastLocation(from_row,from_col);
+        m_p2.setNextLocation(to_row, to_col);
     }
     //Sets the locations to be moved to.
-    p.setLastLocation(from_row,from_col);
-    p.setNextLocation(to_row, to_col);
+    cout << "Make : turns " << m_turns << endl;
 }
 
 void Breakthrough::go()
 {
     Player p;
     Player opponent;
+    //KALLA A LEGALMOVES
     //Finding the correct player to move
     if(m_turns % 2 == 0)
     {
-        p = m_p1;
-        opponent = m_p2;
+        //The locations
+        int to_row = m_p1.getNextLocation().first;
+        int to_col = m_p1.getNextLocation().second;
+        int from_row = m_p1.getPrevLocation().first;
+        int from_col = m_p1.getPrevLocation().second;
+
+        //if there is a pawn in the tile that is being mobed to, then incrementing the number of pawns for the opponent
+        if(m_board.getBoard()[to_row][to_col].getType() != '.')
+        {
+            m_p2.incPawns();
+            m_p2.setkilled(true);
+        }
+        //Moves the piece to it's next location
+        m_board.getBoard()[to_row][to_col].setOwner(m_p1);
+        m_board.getBoard()[to_row][to_col] = m_p1.getType();
+        m_board.getBoard()[from_row][from_col].setOwner(Player());
+        m_board.getBoard()[from_row][from_col] = '.';
+
+        m_p1.setLastLocation(from_row, from_col);
+
+        m_turns++;
+        cout << "move " << from_col	<< " " << from_row << " " << to_col << " " << to_row << endl;
     }
     else
     {
-        p = m_p2;
-        opponent = m_p1;
+        //The locations
+        int to_row = m_p2.getNextLocation().first;
+        int to_col = m_p2.getNextLocation().second;
+        int from_row = m_p2.getPrevLocation().first;
+        int from_col = m_p2.getPrevLocation().second;
+
+        //if there is a pawn in the tile that is being mobed to, then incrementing the number of pawns for the opponent
+        if(m_board.getBoard()[to_row][to_col].getType() != '.')
+        {
+            m_p1.incPawns();
+            m_p1.setkilled(true);
+        }
+        //Moves the piece to it's next location
+        m_board.getBoard()[to_row][to_col].setOwner(m_p2);
+        m_board.getBoard()[to_row][to_col] = m_board.getBoard()[from_row][from_col].getType();
+        m_board.getBoard()[from_row][from_col].setOwner(m_p1);
+        m_board.getBoard()[from_row][from_col] = '.';
+
+        m_turns++;
+        cout << "move " << from_col	<< " " << from_row << " " << to_col << " " << to_row << endl;
     }
-    //The locations
-    int to_row = p.getNextLocation().first;
-    int to_col = p.getNextLocation().second;
-    int from_row = p.getPrevLocation().first;
-    int from_col = p.getPrevLocation().second;
-
-    if(to_row == from_row && to_col == from_col)
-        cout << "You are already there, please make a move." << endl;
-
-    //if there is a pawn in the tile that is being mobed to, then incrementing the number of pawns for the opponent
-    if(m_board.getBoard()[to_row][to_col].getType() != '.')
-    {
-        opponent.incPawns();
-        opponent.setkilled(true);
-    }
-    //Moves the piece to it's next location
-    m_board.getBoard()[to_row][to_col].setOwner(p);
-    m_board.getBoard()[to_row][to_col] = m_board.getBoard()[from_row][from_col].getType();
-    m_board.getBoard()[from_row][from_col].setOwner(opponent);
-    m_board.getBoard()[from_row][from_col] = '.';
-
-    m_turns++;
-
-    cout << "move " << from_col	<< " " << from_row << " " << to_col << " " << to_row << endl;
 }
 
 void Breakthrough::retract(Player player)
@@ -136,23 +152,15 @@ void Breakthrough::start()
 {
     for(int i = 0; i < 8; ++i)
     {
-        cout << i+1 << " tilraun byrjar" << '\n';
-        Piece **temp = m_board.getBoard();
-        cout << temp[0][0].getType();
         //Player 1
-        (temp[0][i]).setOwner(m_p1);
-        cout << "Test 1" << endl;
         m_board.getBoard()[0][i] = m_p1.getType();
-        cout << "Test 2" << endl;
         m_board.getBoard()[1][i].setOwner(m_p1);
         m_board.getBoard()[1][i] = m_p1.getType();
-        cout << i+1 << " tilraun midja" << '\n';
         //Player 2
         m_board.getBoard()[6][i].setOwner(m_p2);
         m_board.getBoard()[6][i] = m_p2.getType();
         m_board.getBoard()[7][i].setOwner(m_p2);
         m_board.getBoard()[7][i] = m_p2.getType();
-        cout << i+1 << " endar" << '\n';
     }
 }
 bool Breakthrough::legalMove(Piece p, pair<int, int> destination)
@@ -273,14 +281,21 @@ bool Breakthrough::legalMove(Piece p, pair<int, int> destination)
     return false;
 }
 
-void Breakthrough::legal(Piece piece)
+void Breakthrough::legal(int row, int col)
 {
-    pair<int,int> currentLocation = piece.getLocation();
+    pair<int,int> currentLocation = pair<int,int>(row,col);
     int localY = currentLocation.first;
     int localX = currentLocation.second;
     bool check = false;
 
-    if((piece.getOwner()).getId() == 0)
+    Player p;
+    if(m_turns % 2 == 0)
+    {
+        p = m_p1;
+    }
+    Piece piece = m_board.getBoard()[row][col];
+
+    if(p.getId() == 0)
     {
         cout << "Legal moves: " << '\n';
         for(int i = 0; i < 3; i++)
@@ -301,7 +316,7 @@ void Breakthrough::legal(Piece piece)
 
 
     }
-    else if((piece.getOwner()).getId() == 1)
+    else if(p.getId() == 1)
     {
         cout << "Legal moves: " << '\n';
         for(int i = 0; i < 3; i++)
@@ -327,26 +342,27 @@ void Breakthrough::legal(Piece piece)
 }
 void Breakthrough::display()
 {
-    //Piece** p = m_board.getBoard();
+    Piece** p = m_board.getBoard();
 
     cout << "                              " << '\n';
-    cout << "     0  1  2  3  4  5  6  7   " << '\n';
+    cout << "      0   1   2   3   4   5   6   7   " << '\n';
     cout << "    _________________________________  " <<'\n';
 
     for(int i = 0; i < 8; i++)
     {
         cout << "    |   |   |   |   |   |   |   |   |  " << '\n';
-        cout << "    |";
+        cout << " " << i <<"  |";
 
         for(int j = 0; j < 8; j++)
         {
-            cout << " " << m_board.getBoard()[i][j].getType() << " |";
+            cout << " " << p[i][j].getType() << " |";
         }
         cout << '\n';
         cout << "    |   |   |   |   |   |   |   |   |  " << '\n';
         cout << "    _________________________________  " <<'\n';
 
     }
+
 }
 
 Breakthrough::~Breakthrough()

@@ -10,10 +10,10 @@ class Breakthrough : public GamePlay
         ~Breakthrough();
         void start();
         bool legalMove(Piece p, std::pair<int, int> destination);
-        void make(int from_col, int from_row, int to_col, int to_row);
+        void make(int from_row, int from_col, int to_row, int to_col);
         void go();
         void retract(Player player);
-        void legal(Piece piece);
+        void legal(int row, int col);
         void display();
 
         void level(std::string difficulty){}

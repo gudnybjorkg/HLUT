@@ -44,10 +44,10 @@ public:
     virtual int getNoPieces(Player player);
 
     ///Outputs all legal moves for the corresponding piece to perform.
-    virtual void legal(Piece piece) = 0;
+    virtual void legal(int row, int col) = 0;
 
     ///Moves a pice from a position to another position
-    virtual void make(int from_col, int from_row, int to_col, int to_row) = 0;
+    virtual void make(int from_row, int from_col, int to_row, int to_col) = 0;
 
     ///Retracts the last move performed by the corresponding player,
     ///also retrieving the last move og the opposite player

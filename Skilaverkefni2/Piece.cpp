@@ -16,7 +16,6 @@ Piece::Piece(char type){
 }
 
 void Piece::setOwner(Player owner){
-    cout << "Set owner";
     m_owner = owner;
 }
 
