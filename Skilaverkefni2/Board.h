@@ -18,10 +18,11 @@ Constructs a square board with a specific size of length and width.
         h  |  |  |  |  |  |
 
 ---------------------------------------------------------------------------*/
-class Board{
+class Board
+{
 public:
     //Constructor
-    Board(){}
+    Board() {}
 
     //Destructor
     ~Board();
@@ -36,31 +37,41 @@ public:
     void setPieceOnBoard(int row, int col, Player playa);
 
     ///Asignment operator
-    Board& operator =(const Board& rhs){
-        m_length = rhs.m_length;
-        m_width = rhs.m_width;;
+    Board& operator =(const Board& rhs)
+    {
+        if(this != &rhs)
+        {
+            m_length = rhs.m_length;
+            m_width = rhs.m_width;;
 
-        m_tiles = new Piece*[m_width];
-        for(int k = 0; k < m_width; k++){
-            m_tiles[k] = new Piece[m_length];
-        }
+            m_tiles = new Piece*[m_width];
+            for(int k = 0; k < m_width; k++)
+            {
+                m_tiles[k] = new Piece[m_length];
+            }
 
-        for(int i = 0; i < m_width; ++i){
-            for(int j = 0; j < m_length; ++j){
-                m_tiles[i][j] = rhs.m_tiles[i][j];
+            for(int i = 0; i < m_width; ++i)
+            {
+                for(int j = 0; j < m_length; ++j)
+                {
+                    m_tiles[i][j] = rhs.m_tiles[i][j];
+                }
             }
         }
         return *this;
     }
 
     ///Copy constructor
-    Board(const Board& rhs) : m_length(rhs.m_length), m_width(rhs.m_width) {
+    Board(const Board& rhs) : m_length(rhs.m_length), m_width(rhs.m_width)
+    {
         m_tiles = new Piece*[m_width];
-        for(int k = 0; k < m_width; k++){
+        for(int k = 0; k < m_width; k++)
+        {
             m_tiles[k] = new Piece[m_length];
         }
 
-        for(int i = 0; i < m_width; ++i){
+        for(int i = 0; i < m_width; ++i)
+        {
             for(int j = 0; j < m_length; ++j)
                 m_tiles[i][j] = rhs.m_tiles[i][j];
         }

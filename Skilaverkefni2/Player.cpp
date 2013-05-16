@@ -77,7 +77,7 @@ pair<int,int> Player::getPrevLocation()
     return m_lastLocation;
 }
 
-void Player::incPawns()
+void Player::decPawns()
 {
     noPawns--;
 }

@@ -10,9 +10,9 @@ Piece::Piece(){
 Piece::Piece(char type){
     m_type = type;
     if(isupper(type))
-        m_owner.setId(0);
-    else
         m_owner.setId(1);
+    else
+        m_owner.setId(0);
 }
 
 void Piece::setOwner(Player owner){
@@ -37,7 +37,8 @@ pair<int, int> Piece::getLocation(){
 }
 
 void Piece::setLocation(int x, int y){
-    m_location = std::make_pair(x,y);
+    m_location.first = x;
+    m_location.second = y;
 }
 
 Piece::~Piece(){}

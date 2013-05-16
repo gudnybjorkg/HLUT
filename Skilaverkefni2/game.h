@@ -29,7 +29,7 @@ public:
     virtual ~GamePlay();
 
     ///Returns true if move for the corresponding piece is valid
-    virtual bool legalMove(Piece p, std::pair<int, int> destination) = 0;
+    virtual bool legalMove(int from_row, int from_col, std::pair<int, int> destination) = 0;
 
     ///Outputs the list of games available to play
     void listOfGames();
