@@ -16,8 +16,6 @@ int main()
         cin >> gameNr;
         if(gameNr == 1)
             game = new Breakthrough();
-        else if(gameNr == 2)
-            game = new Ataxx();
         else
             cout << "Invalid game, please try again" << endl;
     }
@@ -37,7 +35,7 @@ int main()
         cin >> to_col;
         //game->legal(from_row, from_col);
         game->make(from_row, from_col, to_row, to_col);
-        game->go();
+
         game->display();
     }while(true);
 }

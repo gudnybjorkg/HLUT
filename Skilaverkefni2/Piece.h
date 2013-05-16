@@ -10,7 +10,7 @@ by the player.
 ---------------------------------------------------------------------------*/
 class Piece
 {
-    public:
+public:
     ///Constructor
     Piece();
 
@@ -38,6 +38,30 @@ class Piece
 
     ///Destructor
     virtual ~Piece();
+
+    ///Asignment operator
+    Piece& operator =(const Piece& rhs)
+    {
+        if(this != &rhs)
+        {
+            m_type = rhs.m_type;
+            m_owner = rhs.m_owner;
+            m_location.first = rhs.m_location.first;
+            m_location.second = rhs.m_location.second;
+        }
+        return *this;
+    }
+
+    ///Copy constructor
+    Piece(const Piece& rhs)
+    {
+        m_type = rhs.m_type;
+        m_owner = rhs.m_owner;
+
+        m_location.first = rhs.m_location.first;
+        m_location.second = rhs.m_location.second;
+
+    }
 
 private:
     char m_type;

@@ -7,7 +7,8 @@
 A class representing the player participating in a board game.
 
 ---------------------------------------------------------------------------*/
-class Player{
+class Player
+{
 public:
     ///Constructor.
     Player();
@@ -31,7 +32,7 @@ public:
     void setNextLocation(int row, int col);
 
     ///increments the score with 1 point
-    void incPawns();
+    void decPawns();
 
     ///Sets killed
     void setkilled(bool b);
@@ -52,32 +53,26 @@ public:
     int getId();
 
     ///Assignment operator
-    Player& operator =(const Player& rhs){
-        m_id = rhs.m_id;
-        m_type = rhs.m_type;
-        m_lastLocation.first = rhs.m_lastLocation.first;
-        m_lastLocation.second = rhs.m_lastLocation.second;
-        //std::cout << "ASSIGNMENT GAUR " << m_lastLocation.first << " " << m_lastLocation.second;
-        m_nextLocation = rhs.m_nextLocation;
-        noPawns = rhs.noPawns;
-        m_score = rhs.m_score;
-        m_killed = rhs.m_killed;
-        m_difficulty = rhs.m_difficulty;
+    Player& operator =(const Player& rhs)
+    {
+        if(this != &rhs)
+        {
+            m_id = rhs.m_id;
+            m_type = rhs.m_type;
+
+            m_lastLocation.first = rhs.m_lastLocation.first;
+            m_lastLocation.second = rhs.m_lastLocation.second;
+
+            m_nextLocation.first = rhs.m_nextLocation.first;
+            m_nextLocation.second = rhs.m_nextLocation.second;
+
+            noPawns = rhs.noPawns;
+            m_score = rhs.m_score;
+            m_killed = rhs.m_killed;
+            m_difficulty = rhs.m_difficulty;
+        }
         return *this;
     }
-
-    ///Copy constructor
-    Player(const Player& rhs){
-        m_id = rhs.m_id;
-        m_type = rhs.m_type;
-        m_lastLocation = rhs.m_lastLocation;
-        m_nextLocation = rhs.m_nextLocation;
-        noPawns = rhs.noPawns;
-        m_score = rhs.m_score;
-        m_killed = rhs.m_killed;
-        m_difficulty = rhs.m_difficulty;
-    }
-
     ///Destructor
     ~Player();
 

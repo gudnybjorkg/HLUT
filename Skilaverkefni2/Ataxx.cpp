@@ -1,7 +1,7 @@
 #include "Ataxx.h"
-#include <math.h>
+#include <cmath>
 using namespace std;
-
+/*
 Ataxx::Ataxx() : GamePlay()
 {
     m_board = Board(7,7);
@@ -16,7 +16,7 @@ void Ataxx::start(){
     Piece p1('P');
     Piece p2('p');
     Piece empty('.');
-    
+
     for (int i=0; i < 7; i++)
     {
         for (int j=0; j < 7; j++)  ///initialize board
@@ -37,7 +37,7 @@ bool Ataxx::legalMove(Piece p, std::pair<int, int> destination)
     int from_col = currentLocation.second;
     int to_row = destination.first;
     int to_col = destination.second;
-    
+
     if ((-2<=(from_col - to_col) && (from_col - to_col) <=2) && (-2<=(from_row - to_row) && (from_row - to_row)<=2))  ///checks if the move is 2 blocks away
     {
         if (m_board.getBoard()[to_row][to_col].getType() == '.') // if the tile is free
@@ -64,7 +64,7 @@ void Ataxx::make(int from_col, int from_row, int to_col, int to_row)
     Piece p = m_board.getBoard()[from_row][from_col];
     Player owner = p.getOwner();
     Piece empty('.');
-    
+
     if (legalMove(m_board.getBoard()[from_row][from_col],pair<int,int>(to_row,to_col))){
         owner.setLastLocation(from_row, to_row);
         owner.setNextLocation(to_row, to_col);
@@ -92,8 +92,8 @@ void Ataxx::go()
     int to_col = to.second;
     Piece pie = m_board.getBoard()[from_row][from_col];
     Piece empty('.');
-    
-    
+
+
     if ((-1<=(from_col - to_col) && (from_col - to_col) <=1) && (-1<=(from_row - to_row) && (from_row - to_row)<=1))  ///checks if the   move is 1 block away
     {
         m_board.setPieceOnBoard(to_row, to_col, pie); ///no need to remove pawn since we are cloning
@@ -103,8 +103,8 @@ void Ataxx::go()
         m_board.setPieceOnBoard(to_row, to_col, pie); ///moves the piece for the player
         m_board.setPieceOnBoard(from_row, from_col, empty); ///removes the old since we are not moving 1
     }
-    
-    
+
+
     ///convert all the pawns around the pawn
     for (int i = 0; i < 7; i++)
     {
@@ -121,7 +121,7 @@ void Ataxx::go()
 
 void Ataxx::retract(Player player)
 {
-  /*  Player p;
+    Player p;
     Player opponent;
     //Finding the correct player to move
     if(m_turns % 2 == 0)
@@ -134,15 +134,15 @@ void Ataxx::retract(Player player)
         p = m_p2;
         opponent = m_p1;
     }
-    
+
     pair<int,int> prevOp = opponent.getPrevLocation();
     pair<int,int> nextOp = opponent.getNextLocation();
     pair<int,int> prevP = p.getPrevLocation();
     pair<int,int> nextP = p.getNextLocation();
-    
-    
-    
-    
+
+
+
+
     if (abs(prevOp))  ///checks if the   move is 1 block away
     {
         ///if the move was at distance 1 i need to remove the clone and revert the convert
@@ -152,8 +152,8 @@ void Ataxx::retract(Player player)
     {
         ///if the move was at distance 2 i just need to move the the pawn back and revert the convert
     }
-    
-    m_turns--;*/
-}
 
+    m_turns--;
+}
+*/
 
