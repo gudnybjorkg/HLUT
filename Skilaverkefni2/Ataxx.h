@@ -12,7 +12,7 @@ public:
     void convertPiece(int row, int col, Player p, Player opp);
 
 private:
-    Board m_board;
+    //Board m_board;
 };
 
 #endif // ATAXX_H

@@ -1,56 +1,57 @@
 # depslib dependency file v1.0
-1368643942 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
+1368645786 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
 	<iostream>
 	"game.h"
 	<stdlib.h>
 
-1368643942 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
+1368715825 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
 	"Piece.h"
 	"Board.h"
 	"Player.h"
 	<vector>
 	<string>
 
-1368643022 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\main.cpp
+1368718463 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\main.cpp
 	<iostream>
 	"game.h"
 	"Breakthrough.h"
 	"Ataxx.h"
 
-1368636424 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
+1368645785 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
 	"Ataxx.h"
+	<math.h>
 
-1368636256 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
+1368708448 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
 	"game.h"
 
-1368636079 c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.h
+1368710553 c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.h
 	<iostream>
 	"Player.h"
 
-1368641867 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
+1368708883 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
 	<iostream>
 	"Piece.h"
 
-1368634114 c:\users\gudny\documents\github\hlut\skilaverkefni2\player.h
+1368717459 c:\users\gudny\documents\github\hlut\skilaverkefni2\player.h
 	<iostream>
 	<vector>
 
-1368643251 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
+1368707512 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
 	"Board.h"
 
-1368643942 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
+1368718336 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
 	"Breakthrough.h"
 	<utility>
 	<algorithm>
 
-1368643972 c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.h
+1368715825 c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.h
 	"game.h"
 	<iostream>
 
-1368643251 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
+1368707779 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
 	"Piece.h"
 	<iostream>
 
-1368643720 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\player.cpp
+1368645785 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\player.cpp
 	"Player.h"
 
