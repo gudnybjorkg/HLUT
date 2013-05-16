@@ -16,8 +16,8 @@ int main()
         cin >> gameNr;
         if(gameNr == 1)
             game = new Breakthrough();
-        //else if(gameNr == 2)
-            //game = new Ataxx();
+        else if(gameNr == 2)
+            game = new Ataxx();
         else
             cout << "Invalid game, please try again" << endl;
     }

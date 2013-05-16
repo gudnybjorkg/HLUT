@@ -2,7 +2,15 @@
 #include <math.h>
 using namespace std;
 
-Ataxx::Ataxx(){}
+Ataxx::Ataxx() : GamePlay()
+{
+    m_board = Board(7,7);
+    display();
+    m_p1.setType('p');
+    m_p1.setNoPawns(2);
+    m_p2.setType('P');
+    m_p2.setNoPawns(2);
+}
 
 void Ataxx::start(){
     Piece p1('P');
@@ -22,8 +30,14 @@ void Ataxx::start(){
     m_board.setPieceOnBoard(7, 7, p2); ///player 2 set in right bottom corner
 }
 
-bool Ataxx::legalMove(int from_col, int from_row, int to_col, int to_row)
+bool Ataxx::legalMove(Piece p, std::pair<int, int> destination)
 {
+    pair<int,int> currentLocation = p.getLocation();
+    int from_row = currentLocation.first;
+    int from_col = currentLocation.second;
+    int to_row = destination.first;
+    int to_col = destination.second;
+    
     if ((-2<=(from_col - to_col) && (from_col - to_col) <=2) && (-2<=(from_row - to_row) && (from_row - to_row)<=2))  ///checks if the move is 2 blocks away
     {
         if (m_board.getBoard()[to_row][to_col].getType() == '.') // if the tile is free
@@ -51,7 +65,7 @@ void Ataxx::make(int from_col, int from_row, int to_col, int to_row)
     Player owner = p.getOwner();
     Piece empty('.');
     
-    if (legalMove(from_col, from_row, to_col, to_row)){
+    if (legalMove(m_board.getBoard()[from_row][from_col],pair<int,int>(to_row,to_col))){
         owner.setLastLocation(from_row, to_row);
         owner.setNextLocation(to_row, to_col);
     }
@@ -107,7 +121,7 @@ void Ataxx::go()
 
 void Ataxx::retract(Player player)
 {
-    Player p;
+  /*  Player p;
     Player opponent;
     //Finding the correct player to move
     if(m_turns % 2 == 0)
@@ -139,7 +153,7 @@ void Ataxx::retract(Player player)
         ///if the move was at distance 2 i just need to move the the pawn back and revert the convert
     }
     
-    m_turns--;
+    m_turns--;*/
 }
 
 
