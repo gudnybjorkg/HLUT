@@ -6,6 +6,7 @@ using namespace std;
 Breakthrough::Breakthrough() : GamePlay()
 {
     m_board = Board(8,8);
+    display();
     m_p1.setType('p');
     m_p1.setNoPawns(16);
     m_p2.setType('P');
@@ -327,20 +328,20 @@ void Breakthrough::legal(Piece piece)
 }
 void Breakthrough::display()
 {
-    //Piece** p = m_board.getBoard();
+    Piece** p = m_board.getBoard();
 
     cout << "                              " << '\n';
-    cout << "     0  1  2  3  4  5  6  7   " << '\n';
+    cout << "      0   1   2   3   4   5   6   7   " << '\n';
     cout << "    _________________________________  " <<'\n';
 
     for(int i = 0; i < 8; i++)
     {
         cout << "    |   |   |   |   |   |   |   |   |  " << '\n';
-        cout << "    |";
+        cout << " " << i <<"  |";
 
         for(int j = 0; j < 8; j++)
         {
-            cout << " " << m_board.getBoard()[i][j].getType() << " |";
+            cout << " " << p[i][j].getType() << " |";
         }
         cout << '\n';
         cout << "    |   |   |   |   |   |   |   |   |  " << '\n';
