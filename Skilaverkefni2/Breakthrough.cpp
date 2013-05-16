@@ -6,6 +6,7 @@ using namespace std;
 Breakthrough::Breakthrough() : GamePlay()
 {
     m_board = Board(8,8);
+    display();
     m_p1.setType('p');
     m_p1.setNoPawns(16);
     m_p2.setType('P');

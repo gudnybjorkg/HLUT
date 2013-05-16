@@ -23,6 +23,13 @@ Board::Board(int length, int width){
             m_tiles[j][k].setLocation(j,k);
         }
     }
+
+    //////////////debug/////////////////////
+    for(int j = 0; j < m_length; j++){
+        for(int k = 0; k < m_length; k++){
+            cout << "[" << j << "][" << k << "] = " << m_tiles[j][k].getType() << '\n';
+        }
+    }
 }
 
 void Board::setPieceOnBoard(int row, int col, Piece piece)
