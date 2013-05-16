@@ -1,5 +1,6 @@
 #include "Ataxx.h"
 #include <math.h>
+using namespace std;
 
 Ataxx::Ataxx(){}
 
@@ -35,7 +36,7 @@ bool Ataxx::legalMove(int from_col, int from_row, int to_col, int to_row)
 
 void Ataxx::convertPiece(int row, int col, Player p, Player opp){
     Piece pie = m_board.getBoard()[row][col];
-    if (p.getId() != pie.getOwner().getId()) /// if the player doesnt own the current pawn
+    if (p.getId() != pie.getOwner().getId() && pie.getOwner().getId() != -1) /// if the player doesnt own the current pawn and the tile isn't empty
     {
         pie.setOwner(p);
         pie.setType(p.getType());
@@ -83,7 +84,7 @@ void Ataxx::go()
     {
         m_board.setPieceOnBoard(to_row, to_col, pie); ///no need to remove pawn since we are cloning
     }
-    else
+    else /// the move must be 2 blocks away since its legal and not 1 block away
     {
         m_board.setPieceOnBoard(to_row, to_col, pie); ///moves the piece for the player
         m_board.setPieceOnBoard(from_row, from_col, empty); ///removes the old since we are not moving 1
@@ -95,12 +96,50 @@ void Ataxx::go()
     {
         for (int j = 0 ; j < 7; j++)
         {
-            if (sqrt( pow( (to_row - i),2 ) ) == 1 || sqrt( pow( (to_col - j),2 ) ) == 1)
+            if (abs(to_row - i) == 1 || abs(to_col - j) == 1)
             {
                 convertPiece(i, j, p, opponent);
             }
         }
     }
+}
+
+
+void Ataxx::retract(Player player)
+{
+    Player p;
+    Player opponent;
+    //Finding the correct player to move
+    if(m_turns % 2 == 0)
+    {
+        p = m_p1;
+        opponent = m_p2;
+    }
+    else
+    {
+        p = m_p2;
+        opponent = m_p1;
+    }
+    
+    pair<int,int> prevOp = opponent.getPrevLocation();
+    pair<int,int> nextOp = opponent.getNextLocation();
+    pair<int,int> prevP = p.getPrevLocation();
+    pair<int,int> nextP = p.getNextLocation();
+    
+    
+    
+    
+    if (abs(prevOp))  ///checks if the   move is 1 block away
+    {
+        ///if the move was at distance 1 i need to remove the clone and revert the convert
+
+    }
+    else /// the move must be 2 blocks away since its legal and not 1 block away
+    {
+        ///if the move was at distance 2 i just need to move the the pawn back and revert the convert
+    }
+    
+    m_turns--;
 }
 
 
