@@ -9,7 +9,7 @@ Piece::Piece(){
 
 Piece::Piece(char type){
     m_type = type;
-    if(isupper(type))
+    if(type == 'X')
         m_owner.setId(1);
     else
         m_owner.setId(0);

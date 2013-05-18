@@ -52,7 +52,7 @@ public:
     ///Get id
     int getId();
 
-    ///Assignment operator
+    /*Assignment operator
     Player& operator =(const Player& rhs)
     {
         if(this != &rhs)
@@ -72,7 +72,7 @@ public:
             m_difficulty = rhs.m_difficulty;
         }
         return *this;
-    }
+    }*/
     ///Destructor
     ~Player();
 

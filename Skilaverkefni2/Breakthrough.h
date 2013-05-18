@@ -13,7 +13,7 @@ class Breakthrough : public GamePlay
         void make(int from_row, int from_col, int to_row, int to_col);
         void go();
         void retract(Player player);
-        void legal(int row, int col);
+        void legal();
         void display();
 
         void level(std::string difficulty){}

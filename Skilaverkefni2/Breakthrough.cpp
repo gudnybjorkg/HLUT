@@ -6,9 +6,9 @@ using namespace std;
 Breakthrough::Breakthrough() : GamePlay()
 {
     m_board = Board(8,8);
-    m_p1.setType('p');
+    m_p1.setType('X');
     m_p1.setNoPawns(16);
-    m_p2.setType('P');
+    m_p2.setType('O');
     m_p2.setNoPawns(16);
 
 }
@@ -22,7 +22,6 @@ void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
         return;
     }
     //Finding the player which turn it is
-    Player p;
     if(m_turns % 2 == 0)
     {
         m_p1.setLastLocation(from_row,from_col);
@@ -258,11 +257,11 @@ bool Breakthrough::legalMove(int row, int col, pair<int, int> destination)
     return true;
 }
 
-void Breakthrough::legal(int row, int col)
+void Breakthrough::legal()
 {
-    pair<int,int> currentLocation = pair<int,int>(row,col);
-    int localY = currentLocation.first;
-    int localX = currentLocation.second;
+    /*pair<int,int> currentLocation = pair<int,int>(row,col);
+    //int localY = currentLocation.first;
+    //int localX = currentLocation.second;
     bool check = false;
 
     Player p;
@@ -314,7 +313,7 @@ void Breakthrough::legal(int row, int col)
     else
     {
         cout << "That's not a knife, that's a spoon." << '\n';
-    }
+    }*/
 }
 
 void Breakthrough::display()
@@ -339,7 +338,9 @@ void Breakthrough::display()
         cout << "    _________________________________  " <<'\n';
 
     }
-
+    cout << "Player: " << (m_turns % 2) << endl;
+    cout << "Player 1 has " << m_p1.getNoPawns() << " pawns." << endl;
+    cout << "Player 2 has " << m_p2.getNoPawns() << " pawns." << endl;
 }
 
 Breakthrough::~Breakthrough()

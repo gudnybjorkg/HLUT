@@ -44,7 +44,7 @@ public:
     virtual int getNoPieces(Player player);
 
     ///Outputs all legal moves for the corresponding piece to perform.
-    virtual void legal(int row, int col) = 0;
+    virtual void legal() = 0;
 
     ///Moves a pice from a position to another position
     virtual void make(int from_row, int from_col, int to_row, int to_col) = 0;
