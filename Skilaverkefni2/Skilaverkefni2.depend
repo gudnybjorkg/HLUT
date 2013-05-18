@@ -1,27 +1,29 @@
 # depslib dependency file v1.0
-1368645786 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
+1368917738 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\game.cpp
 	<iostream>
 	"game.h"
 	<stdlib.h>
 
-1368730700 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
+1368916475 c:\users\gudny\documents\github\hlut\skilaverkefni2\game.h
 	"Piece.h"
 	"Board.h"
 	"Player.h"
 	<vector>
 	<string>
+	<stack>
 
-1368730700 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\main.cpp
+1368917753 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\main.cpp
 	<iostream>
 	"game.h"
 	"Breakthrough.h"
 	"Ataxx.h"
 
-1368720086 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
+1368917399 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.cpp
 	"Ataxx.h"
 	<cmath>
+	<algorithm>
 
-1368720086 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
+1368916475 c:\users\gudny\documents\github\hlut\skilaverkefni2\ataxx.h
 	"game.h"
 	<iostream>
 
@@ -29,27 +31,27 @@
 	<iostream>
 	"Player.h"
 
-1368735073 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
+1368822996 c:\users\gudny\documents\github\hlut\skilaverkefni2\board.h
 	<iostream>
 	"Piece.h"
 
-1368737461 c:\users\gudny\documents\github\hlut\skilaverkefni2\player.h
+1368898034 c:\users\gudny\documents\github\hlut\skilaverkefni2\player.h
 	<iostream>
 	<vector>
 
-1368721906 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
+1368822996 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\board.cpp
 	"Board.h"
 
-1368736440 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
+1368914993 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.cpp
 	"Breakthrough.h"
 	<utility>
 	<algorithm>
 
-1368730700 c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.h
+1368916475 c:\users\gudny\documents\github\hlut\skilaverkefni2\breakthrough.h
 	"game.h"
 	<iostream>
 
-1368736996 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
+1368899595 source:c:\users\gudny\documents\github\hlut\skilaverkefni2\piece.cpp
 	"Piece.h"
 	<iostream>
 

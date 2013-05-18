@@ -37,6 +37,36 @@ int GamePlay::getNoPieces(Player player)
     return player.getNoPawns();
 }
 
+void GamePlay::retract()
+{
+    if (m_states.empty())
+    {
+        cout << "No previous state" << endl;
+        return;
+    }
+    State previousState = m_states.top();
+
+    m_p1 = previousState.p1;
+    m_p2 = previousState.p2;
+    m_board = previousState.b;
+    //m_turns = previousState.turns;
+    display();
+    m_states.pop();
+}
+
+void GamePlay::level(std::string difficulty){
+    m_difficulty = difficulty;
+}
+
+int GamePlay::evaluate(){
+    if(m_turns % 2 == 0){
+        return m_p1.getNoPawns();
+    }
+    else{
+        return m_p2.getNoPawns();
+    }
+}
+
 ///Quits the game play
 void GamePlay::quit(){
     cout << "Are you sure you want to quit the game? (y/n)" << endl;

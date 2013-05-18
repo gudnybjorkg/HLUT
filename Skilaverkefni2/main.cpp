@@ -25,6 +25,8 @@ int main()
     int to_row;
     int from_col;
     int to_col;
+    char bla;
+    char go;
     do
     {
         cout << "enter a movement: (from row, from col, to row, to col)";
@@ -34,8 +36,15 @@ int main()
         cin >> to_col;
         game->legal();
         game->make(from_row, from_col, to_row, to_col);
-
         game->display();
-    }
-    while(true);
+        cout << "Retract? ";
+        cin >> bla;
+        if(bla == 'y' || bla == 'Y')
+            game->retract();
+        cout << "Go? ";
+        cin >> go;
+        if(go == 'y' || go == 'Y')
+            game->go();
+        //game->m_turns++;
+    }while(true);
 }

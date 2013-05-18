@@ -51,7 +51,8 @@ bool Ataxx::legalMove(int from_row,int from_col, std::pair<int, int> destination
         {
             return true;
         }
-        else{
+        else
+        {
             cout << "Illegal move, this tile is occupado!" << endl;
         }
     }
@@ -88,6 +89,13 @@ void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
     if (!legalMove(from_row,from_col,pair<int,int>(to_row,to_col)))
         return;
 
+    State currentState;
+    currentState.p1 = m_p1;
+    currentState.p2 = m_p2;
+    currentState.b = m_board;
+    //currentState.turns = m_turns;
+    m_states.push(currentState);
+
     if(m_turns % 2 == 0)
     {
         m_p1.setLastLocation(from_row, from_col);
@@ -115,7 +123,7 @@ void Ataxx::go()
         int to_col = to.second;
         Player playa = m_board.getBoard()[from_row][from_col].getOwner();
 
-        if ((-1<=(from_col - to_col) && (from_col - to_col) <=1) && (-1<=(from_row - to_row) && (from_row - to_row)<=1))  ///checks if the   move is 1 block away
+        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)  ///checks if the   move is 1 block away
         {
             //m_board.setPieceOnBoard(to_row, to_col, playa); ///no need to remove pawn since we are cloning
             m_board.getBoard()[to_row][to_col].setOwner(m_p1);
@@ -143,6 +151,15 @@ void Ataxx::go()
                 }
             }
         }
+        if(finalState())
+        {
+            if(m_p1.getNoPawns() < m_p2.getNoPawns())
+                cout << "Player 2 wins!" << endl;
+            if(m_p1.getNoPawns() > m_p2.getNoPawns())
+                cout << "Player 1 wins!" << endl;
+            else
+                cout << "There was a tie" << endl;
+        }
     }
     else
     {
@@ -154,7 +171,7 @@ void Ataxx::go()
         int to_col = to.second;
         Player playa = m_board.getBoard()[from_row][from_col].getOwner();
 
-        if ((-1<=(from_col - to_col) && (from_col - to_col) <=1) && (-1<=(from_row - to_row) && (from_row - to_row)<=1))  ///checks if the   move is 1 block away
+        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)  ///checks if the   move is 1 block away
         {
             m_board.getBoard()[to_row][to_col].setOwner(m_p2);
             m_board.getBoard()[to_row][to_col] = m_p2.getType();
@@ -182,45 +199,18 @@ void Ataxx::go()
             }
         }
     }
-    m_turns++;
+    //m_turns++;
 }
 
-
-void Ataxx::retract(Player player)
+bool Ataxx::finalState()
 {
-    /*  Player p;
-      Player opponent;
-      //Finding the correct player to move
-      if(m_turns % 2 == 0)
-      {
-          p = m_p1;
-          opponent = m_p2;
-      }
-      else
-      {
-          p = m_p2;
-          opponent = m_p1;
-      }
-
-      pair<int,int> prevOp = opponent.getPrevLocation();
-      pair<int,int> nextOp = opponent.getNextLocation();
-      pair<int,int> prevP = p.getPrevLocation();
-      pair<int,int> nextP = p.getNextLocation();
-
-
-
-
-      if (abs(prevOp))  ///checks if the   move is 1 block away
-      {
-          ///if the move was at distance 1 i need to remove the clone and revert the convert
-
-      }
-      else /// the move must be 2 blocks away since its legal and not 1 block away
-      {
-          ///if the move was at distance 2 i just need to move the the pawn back and revert the convert
-      }
-
-      m_turns--;*/
+    for(int i = 0; i < 7; ++i)
+    {
+        for(int j = 0; j < 7; ++j)
+            if(m_board.getBoard()[i][j].getOwner().getId() == -1)
+                return false;
+    }
+    return true;
 }
 
 void Ataxx::display()

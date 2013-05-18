@@ -21,6 +21,14 @@ void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
         //cout << "This is not a legal move, please try again." << endl;
         return;
     }
+
+    State currentState;
+    currentState.p1 = m_p1;
+    currentState.p2 = m_p2;
+    currentState.b = m_board;
+    currentState.turns = m_turns;
+    m_states.push(currentState);
+
     //Finding the player which turn it is
     if(m_turns % 2 == 0)
     {
@@ -86,92 +94,11 @@ void Breakthrough::go()
         cout << "move " << from_row	<< " " << from_col << " " << to_row << " " << to_col << endl;
     }
     m_turns++;
-}
 
-void Breakthrough::retract(Player player)
-{
-    Player p;
-    Player opponent;
-    //Finding the correct player to move
-    if(m_turns % 2 == 0)
-    {
-        pair<int,int> prevOp = m_p2.getPrevLocation();
-        pair<int,int> nextOp = m_p2.getNextLocation();
-        pair<int,int> prevP = m_p1.getPrevLocation();
-        pair<int,int> nextP = m_p1.getNextLocation();
-
-        //retrieveing the last move made from the opponent
-        if(opponent.getKilled())
-        {
-            //Putting the old fellow back
-            m_board.getBoard()[nextOp.first][nextOp.second] = m_p1.getType();
-            m_board.getBoard()[nextOp.first][nextOp.second].setOwner(m_p1);
-            opponent.setkilled(false);
-            //Move the opponent back to it's old location
-            m_board.getBoard()[prevOp.first][prevOp.second].setOwner(m_p2);
-            m_board.getBoard()[prevOp.first][prevOp.second] = m_p2.getType();
-        }
-        else
-        {
-            //Move the opponent back to it's old location
-            m_board.getBoard()[prevOp.first][prevOp.second].setOwner(m_p2);
-            m_board.getBoard()[prevOp.first][prevOp.second] = m_board.getBoard()[nextOp.first][nextOp.second];
-            //The next move for the opponent is undetermined
-            m_board.getBoard()[nextOp.first][nextOp.second].setOwner(Player());
-            m_board.getBoard()[nextOp.first][nextOp.second].setLocation(nextOp.first, nextOp.second);
-            m_board.getBoard()[nextOp.first][nextOp.second] = '.';
-
-            //Move the player back to it's old location
-            m_board.getBoard()[prevP.first][prevP.second].setOwner(m_p1);
-            m_board.getBoard()[prevP.first][prevP.second] = m_p1.getType();
-            //The new location is unoccupied
-            m_board.getBoard()[nextP.first][nextP.second].setOwner(Player());
-            m_board.getBoard()[nextP.first][nextP.second] = '.';
-        }
-        //Returning the nextLocation to it's old state for both players.
-        m_p2.setNextLocation(prevOp.first, prevOp.second);
-        m_p1.setNextLocation(prevP.first, prevP.second);
-    }
-    else{
-
-        pair<int,int> prevOp = m_p1.getPrevLocation();
-        pair<int,int> nextOp = m_p1.getNextLocation();
-        pair<int,int> prevP = m_p2.getPrevLocation();
-        pair<int,int> nextP = m_p2.getNextLocation();
-
-        //retrieveing the last move made from the opponent
-        if(m_p1.getKilled())
-        {
-            //Putting the old fellow back
-            m_board.getBoard()[nextOp.first][nextOp.second] = m_p2.getType();
-            m_board.getBoard()[nextOp.first][nextOp.second].setOwner(m_p2);
-            opponent.setkilled(false);
-            //Move the opponent back to it's old location
-            m_board.getBoard()[prevOp.first][prevOp.second].setOwner(m_p1);
-            m_board.getBoard()[prevOp.first][prevOp.second] = m_p1.getType();
-        }
-        else
-        {
-            //Move the opponent back to it's old location
-            m_board.getBoard()[prevOp.first][prevOp.second].setOwner(m_p1);
-            m_board.getBoard()[prevOp.first][prevOp.second] = m_board.getBoard()[nextOp.first][nextOp.second];
-            //The next move for the opponent is undetermined
-            m_board.getBoard()[nextOp.first][nextOp.second].setOwner(Player());
-            m_board.getBoard()[nextOp.first][nextOp.second].setLocation(nextOp.first, nextOp.second);
-            m_board.getBoard()[nextOp.first][nextOp.second] = '.';
-
-            //Move the player back to it's old location
-            m_board.getBoard()[prevP.first][prevP.second].setOwner(m_p2);
-            m_board.getBoard()[prevP.first][prevP.second] = m_p2.getType();
-            //The new location is unoccupied
-            m_board.getBoard()[nextP.first][nextP.second].setOwner(Player());
-            m_board.getBoard()[nextP.first][nextP.second] = '.';
-        }
-        //Returning the nextLocation to it's old state for both players.
-        m_p1.setNextLocation(prevOp.first, prevOp.second);
-        m_p2.setNextLocation(prevP.first, prevP.second);
-    }
-    m_turns--;
+    if(m_p1.getId() == finalState())
+        cout << "Congratulations, Player 1 wins!" << endl;
+    else if(m_p2.getId() == finalState())
+        cout << "Congratulations, Player 2 wins!" << endl;
 }
 
 void Breakthrough::start()
@@ -255,6 +182,20 @@ bool Breakthrough::legalMove(int row, int col, pair<int, int> destination)
         return true;
     }
     return true;
+}
+
+int Breakthrough::finalState()
+{
+    for(int i = 0; i < 8; ++i)
+    {
+        //Player 2 wins
+        if(m_board.getBoard()[0][i].getOwner().getId() == m_p2.getId())
+            return m_p2.getId();
+        //Player 1 wins
+        if(m_board.getBoard()[6][i].getOwner().getId() == m_p1.getId())
+            return m_p1.getId();
+    }
+    return -1;
 }
 
 void Breakthrough::legal()

@@ -6,12 +6,23 @@
 
 #include <vector>
 #include <string>
-/*
+#include <stack>
+/**
 An interface for implemtation of two-player board games.
 */
 enum Game{ breakthrough = 0, ataxx = 1};
 
-/*---------------------------------------------------------------------------
+/**
+A struct for containing all board states for
+*/
+struct State{
+    Player p1;
+    Player p2;
+    Board b;
+    int turns;
+};
+
+/**--------------------------------------------------------------------------
 
 The interface for implementing a two-player board game with a set of rules and
 strategies.
@@ -51,7 +62,7 @@ public:
 
     ///Retracts the last move performed by the corresponding player,
     ///also retrieving the last move og the opposite player
-    virtual void retract(Player player) = 0;
+    virtual void retract();
 
     ///Displays the current gamestate, ie. each piece on the board in it's position
     ///Each tile containing a '.' is an empty square.
@@ -67,7 +78,7 @@ public:
     virtual void level(std::string difficulty) = 0;
 
     ///Returns the evaluation value of the current board state
-    virtual int evaluate(Board board) = 0;
+    virtual int evaluate();
 
     /*
     The computer plays for the player to move using the current difficulty level
@@ -82,10 +93,12 @@ public:
     virtual void debug() = 0;
 
 protected:
+    std::string m_difficulty;
     int m_turns;            /// Counts the number of turns in the game
     Board m_board;
     Player m_p1;
     Player m_p2;
+    std::stack<State> m_states;
 };
 
 
