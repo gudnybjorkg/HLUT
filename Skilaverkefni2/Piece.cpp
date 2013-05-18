@@ -10,9 +10,9 @@ Piece::Piece(){
 Piece::Piece(char type){
     m_type = type;
     if(type == 'X')
-        m_owner.setId(1);
-    else
         m_owner.setId(0);
+    else
+        m_owner.setId(1);
 }
 
 void Piece::setOwner(Player owner){

@@ -61,23 +61,22 @@ bool Ataxx::legalMove(int from_row,int from_col, std::pair<int, int> destination
 
 void Ataxx::convertPiece(int row, int col, Player p, Player opp)
 {
-    Piece pie = m_board.getBoard()[row][col];
     if(m_turns % 2 == 0)
     {
-        if (m_p1.getId() != pie.getOwner().getId() && pie.getOwner().getId() != -1) /// if the player doesnt own the current pawn and the tile isn't empty
+        if (m_p1.getId() != m_board.getBoard()[row][col].getOwner().getId() && m_board.getBoard()[row][col].getOwner().getId() != -1) /// if the player doesnt own the current pawn and the tile isn't empty
         {
-            pie.setOwner(m_p1);
-            pie.setType(m_p1.getType());
+            m_board.getBoard()[row][col].setOwner(m_p1);
+            m_board.getBoard()[row][col] = m_p1.getType();
             m_p1.setNoPawns(m_p1.getNoPawns()+1);
             m_p2.setNoPawns(m_p2.getNoPawns()-1);  ///win state hér ef opp á 0
         }
     }
     else
     {
-        if (m_p2.getId() != pie.getOwner().getId() && pie.getOwner().getId() != -1) /// if the player doesnt own the current pawn and the tile isn't empty
+        if (m_p2.getId() != m_board.getBoard()[row][col].getOwner().getId() && m_board.getBoard()[row][col].getOwner().getId() != -1) /// if the player doesnt own the current pawn and the tile isn't empty
         {
-            pie.setOwner(m_p2);
-            pie.setType(m_p2.getType());
+            m_board.getBoard()[row][col].setOwner(m_p2);
+            m_board.getBoard()[row][col] = m_p2.getType();
             m_p2.setNoPawns(m_p2.getNoPawns()+1);
             m_p1.setNoPawns(m_p1.getNoPawns()-1);  ///win state hér ef opp á 0
         }
@@ -154,8 +153,6 @@ void Ataxx::go()
         int to_row = to.first;
         int to_col = to.second;
         Player playa = m_board.getBoard()[from_row][from_col].getOwner();
-        Player empty;
-
 
         if ((-1<=(from_col - to_col) && (from_col - to_col) <=1) && (-1<=(from_row - to_row) && (from_row - to_row)<=1))  ///checks if the   move is 1 block away
         {
