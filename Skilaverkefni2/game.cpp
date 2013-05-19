@@ -1,9 +1,11 @@
 #include <iostream>
 #include "game.h"
 #include <stdlib.h>
+#include <stack>
 using namespace std;
 
-GamePlay::GamePlay(){
+GamePlay::GamePlay()
+{
     m_p1 = Player();
     m_p2 = Player();
     m_p1.setId(0);
@@ -11,21 +13,30 @@ GamePlay::GamePlay(){
     m_p1.setType('.');
     m_p2.setType('.');
     m_turns = 0;
-    m_difficulty = "easy";
+    m_difficulty = "random";
     m_win = false;
 }
 
-GamePlay::~GamePlay(){
-    //~Board();
+///Increases the number of turns by one
+void GamePlay::incTurns()
+{
+    m_turns++;
 }
+
+///Destructor
+GamePlay::~GamePlay() {}
+
 ///Returns the board
-Board GamePlay::getBoard(){
+Board GamePlay::getBoard()
+{
     return m_board;
 }
 
 ///Outputs the list of games available to play
-void GamePlay::listOfGames(){
-    for(unsigned int i = 0; i < sizeof(Game); ++i){
+void GamePlay::listOfGames()
+{
+    for(unsigned int i = 0; i < sizeof(Game); ++i)
+    {
         if(i == 0)
             cout << "Nr. 1: Breakthrough" ;
         if(i == 1)
@@ -54,21 +65,26 @@ void GamePlay::retract()
     m_states.pop();
 }
 
-void GamePlay::level(std::string difficulty){
+void GamePlay::level(std::string difficulty)
+{
     m_difficulty = difficulty;
 }
 
-int GamePlay::evaluate(){
-    if(m_turns % 2 == 0){
+int GamePlay::evaluate()
+{
+    if(m_turns % 2 == 0)
+    {
         return m_p1.getNoPawns();
     }
-    else{
+    else
+    {
         return m_p2.getNoPawns();
     }
 }
 
 ///Quits the game play
-void GamePlay::quit(){
+void GamePlay::quit()
+{
     cout << "Are you sure you want to quit the game? (y/n)" << endl;
     char ans;
     cin >> ans;
@@ -77,14 +93,19 @@ void GamePlay::quit(){
     else return;
 }
 
-bool GamePlay::getWinState(){
+bool GamePlay::getWinState()
+{
     return m_win;
 }
 
-string GamePlay::getDifficulty(){
+string GamePlay::getDifficulty()
+{
     return m_difficulty;
 }
 
-vector<Moves> GamePlay::getlegalMoves(){
+vector<Moves> GamePlay::getlegalMoves()
+{
     return m_legalMoves;
 }
+
+

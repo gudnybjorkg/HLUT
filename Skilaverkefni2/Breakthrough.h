@@ -16,8 +16,6 @@ class Breakthrough : public GamePlay
         virtual bool legalMove(int from_row, int from_col, int to_row, int to_col);
         virtual void make(int from_row, int from_col, int to_row, int to_col);
         virtual void display();
-
-        virtual void debug(){}
 };
 
 #endif // BREAKTHROUGH_H

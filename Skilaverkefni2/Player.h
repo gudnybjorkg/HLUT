@@ -13,9 +13,6 @@ public:
     ///Constructor.
     Player();
 
-    ///Sets the difficulty of the moves to be played.
-    void setDifficulty(std::string difficulty);
-
     ///Returns number of pawns
     int getNoPawns();
 
@@ -66,7 +63,6 @@ private:
     int noPawns;
     int m_score;
     bool m_killed;                          ///True if last move killed
-    std::string m_difficulty;               /// Represents the difficulty of moves to be played
 };
 
 #endif // PLAYER_H

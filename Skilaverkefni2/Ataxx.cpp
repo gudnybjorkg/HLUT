@@ -40,22 +40,19 @@ bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
 
     if(m_turns % 2 == 0)
     {
-        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p1.getId())
+        if(m_board.getBoard()[from_row][from_col].getType() != m_p1.getType())
             return false;
     }
     else
     {
-        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p2.getId())
+        if(m_board.getBoard()[from_row][from_col].getType() != m_p2.getType())
             return false;
     }
     if (max(abs(from_col-to_col),(abs(from_row - to_row)))<= 2)  ///checks if the move is 2 blocks away
     {
         if (m_board.getBoard()[to_row][to_col].getType() == '.') /// if the tile is free
             return true;
-        //else
-        //cout << "Illegal move, this tile is occupado!" << endl;
     }
-    //cout << "Illegal move, you cannot go there" << endl;
     return false;
 }
 
@@ -63,7 +60,7 @@ void Ataxx::convertPiece(int row, int col)
 {
     if(m_turns % 2 == 0)
     {
-        if (m_p1.getId() != m_board.getBoard()[row][col].getOwner().getId() && m_board.getBoard()[row][col].getOwner().getId() != -1) /// if the player doesnt own the current pawn and the tile isn't empty
+        if (m_p1.getType() != m_board.getBoard()[row][col].getType() && m_board.getBoard()[row][col].getType()!= '.') /// if the player doesnt own the current pawn and the tile isn't empty
         {
             m_board.getBoard()[row][col].setOwner(m_p1);
             m_board.getBoard()[row][col] = m_p1.getType();
@@ -73,7 +70,7 @@ void Ataxx::convertPiece(int row, int col)
     }
     else
     {
-        if (m_p2.getId() != m_board.getBoard()[row][col].getOwner().getId() && m_board.getBoard()[row][col].getOwner().getId() != -1) /// if the player doesnt own the current pawn and the tile isn't empty
+        if (m_p2.getType() != m_board.getBoard()[row][col].getType() && m_board.getBoard()[row][col].getType() != '.') /// if the player doesnt own the current pawn and the tile isn't empty
         {
             m_board.getBoard()[row][col].setOwner(m_p2);
             m_board.getBoard()[row][col] = m_p2.getType();
@@ -186,7 +183,7 @@ void Ataxx::setLegalMoves()
         {
             for(int j = 0; j < 7; ++j)
             {
-                if(p[i][j].getOwner().getId() == 0)
+                if(p[i][j].getType() == m_p1.getType())
                 {
                     for(int k = (i-2); k < ((i-2)+5); k++)
                     {
@@ -206,7 +203,7 @@ void Ataxx::setLegalMoves()
         {
             for(int j = 0; j < 7; ++j)
             {
-                if(p[i][j].getOwner().getId() == 1)
+                if(p[i][j].getType() == m_p2.getType())
                 {
                     for(int k = (i-2); k < ((i-2)+5); ++k)
                     {
@@ -226,7 +223,7 @@ bool Ataxx::finalState()
     for(int i = 0; i < 7; ++i)
     {
         for(int j = 0; j < 7; ++j)
-            if(m_board.getBoard()[i][j].getOwner().getId() == -1)
+            if(m_board.getBoard()[i][j].getType() == '.')
                 return false;
     }
     return true;

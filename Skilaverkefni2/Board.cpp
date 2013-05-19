@@ -21,7 +21,6 @@ Board::Board(int length, int width){
             m_tiles[j][k] = Piece();
             m_tiles[j][k].setOwner(Player());
             m_tiles[j][k].setLocation(j,k);
-            //cout << "Creating the board location: "<< m_tiles[j][k].getLocation().first << " " << m_tiles[j][k].getLocation().second << endl;
         }
     }
 }

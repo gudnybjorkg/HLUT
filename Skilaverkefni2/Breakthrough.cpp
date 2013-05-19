@@ -30,19 +30,11 @@ void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
     //Finding the player which turn it is
     if(m_turns % 2 == 0)
     {
-        m_p1.setLastLocation(from_row,from_col);
-        m_p1.setNextLocation(to_row, to_col);
 
-        int to_row = m_p1.getNextLocation().first;
-        int to_col = m_p1.getNextLocation().second;
-        int from_row = m_p1.getPrevLocation().first;
-        int from_col = m_p1.getPrevLocation().second;
-
-        //if there is a pawn in the tile that is being mobed to, then incrementing the number of pawns for the opponent
+        //if there is a pawn in the tile that is being moved to, then incrementing the number of pawns for the opponent
         if(m_board.getBoard()[to_row][to_col].getType() != '.')
         {
             m_p2.decPawns();
-            m_p2.setkilled(true);
         }
         //Moves the piece to it's next location
         m_board.getBoard()[to_row][to_col].setOwner(m_p1);
@@ -50,26 +42,15 @@ void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
         m_board.getBoard()[from_row][from_col].setOwner(Player());
         m_board.getBoard()[from_row][from_col] = '.';
 
-        m_p1.setLastLocation(from_row, from_col);
-
         cout << "move " << from_row	<< " " << from_col << " " << to_row << " " << to_col << endl;
     }
     else
     {
-        m_p2.setLastLocation(from_row,from_col);
-        m_p2.setNextLocation(to_row, to_col);
 
-        //The locations
-        int to_row = m_p2.getNextLocation().first;
-        int to_col = m_p2.getNextLocation().second;
-        int from_row = m_p2.getPrevLocation().first;
-        int from_col = m_p2.getPrevLocation().second;
-
-        //if there is a pawn in the tile that is being mobed to, then incrementing the number of pawns for the opponent
+        //if there is a pawn in the tile that is being moved to, then incrementing the number of pawns for the opponent
         if(m_board.getBoard()[to_row][to_col].getType() != '.')
         {
             m_p1.decPawns();
-            m_p1.setkilled(true);
         }
         //Moves the piece to it's next location
         m_board.getBoard()[to_row][to_col].setOwner(m_p2);
@@ -126,7 +107,7 @@ bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
     if(m_turns % 2 == 0)
     {
         //if the player tries to move a pawn that is not his
-        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p1.getId())
+        if(m_board.getBoard()[from_row][from_col].getType() != 'X')
         {
             cout << "Illegal move, this is not your pawn." << endl;
             return false;
@@ -139,13 +120,13 @@ bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
             return false;
         }
         //If there is an opponent in the destination tile and the tile is infront of the pawn to be moved
-        if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p2.getId() && to_col == from_col)
+        if(m_board.getBoard()[to_row][to_col].getType() == 'O' && to_col == from_col)
         {
             cout << "Illegal move, you cannot kill this pawn." << endl;
             return false;
         }
         //if the destination tile holds a pawn that is on the players team
-        else if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p1.getId())
+        else if(m_board.getBoard()[to_row][to_col].getType() == 'X')
         {
             cout << "Illegal move, you already have a pawn there." << endl;
             return false;
@@ -154,7 +135,7 @@ bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
     else
     {
         //if the player tries to move a pawn that is not his
-        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p2.getId())
+        if(m_board.getBoard()[from_row][from_col].getType() != 'O')
         {
             //cout << "Illegal move, this is not your pawn." << endl;
             return false;
@@ -167,15 +148,15 @@ bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
             return false;
         }
         //If there is an opponent in the destination tile and the tile is infront of the pawn to be moved
-        if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p1.getId() && to_col == from_col)
+        if(m_board.getBoard()[to_row][to_col].getType() == 'X' && to_col == from_col)
         {
-            //cout << "Illigal move, you cannot kill this pawn." << endl;
+            //cout << "Illegal move, you cannot kill this pawn." << endl;
             return false;
         }
         //if the destination tile holds a pawn that is on the players team
-        else if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p2.getId())
+        else if(m_board.getBoard()[to_row][to_col].getType() == 'O')
         {
-            //cout << "Illigal move, you already have a pawn there." << endl;
+            //cout << "Illegal move, you already have a pawn there." << endl;
             return false;
         }
     }
@@ -188,10 +169,10 @@ int Breakthrough::finalState()
     for(int i = 0; i < 8; ++i)
     {
         //Player 2 wins
-        if(m_board.getBoard()[0][i].getOwner().getId() == m_p2.getId())
+        if(m_board.getBoard()[0][i].getType() == 'O')
             return m_p2.getId();
         //Player 1 wins
-        if(m_board.getBoard()[7][i].getOwner().getId() == m_p1.getId())
+        if(m_board.getBoard()[7][i].getType() == 'X')
             return m_p1.getId();
     }
     if(m_p1.getNoPawns() == 0)

@@ -15,12 +15,6 @@ public:
     virtual void start();
     void convertPiece(int row, int col);
     virtual void display();
-
-
-    //yet to implement
-    virtual void debug(){}
-    virtual int getNoPieces(Player player){return 1;}
-
 };
 
 #endif // ATAXX_H

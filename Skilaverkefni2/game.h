@@ -7,17 +7,17 @@
 #include <vector>
 #include <string>
 #include <stack>
-#include <list>
 
 /**
 An interface for implemtation of two-player board games.
 */
-enum Game{ breakthrough = 0, ataxx = 1};
+enum Game { breakthrough = 0, ataxx = 1};
 
 /**
-A struct for containing all board states for
+A struct for containing the board state and the players in the game
 */
-struct State{
+struct State
+{
     Player p1;
     Player p2;
     Board b;
@@ -25,14 +25,17 @@ struct State{
 };
 
 /***/
-struct Moves{
-    Moves(int fRow, int fCol, int tRow, int tCol){
+struct Moves
+{
+    Moves(int fRow, int fCol, int tRow, int tCol)
+    {
         from_row = fRow;
         from_col = fCol;
         to_row = tRow;
         to_col = tCol;
     }
-    bool operator ==(const Moves& rhs) const{
+    bool operator ==(const Moves& rhs) const
+    {
         return(from_col == rhs.from_col && from_row == rhs.from_row && to_col == rhs.to_col && to_row == rhs.to_row);
     }
     int from_row, from_col;
@@ -45,7 +48,8 @@ The interface for implementing a two-player board game with a set of rules and
 strategies.
 
 ---------------------------------------------------------------------------*/
-class GamePlay{
+class GamePlay
+{
 public:
     ///Construtor
     GamePlay();
@@ -69,7 +73,7 @@ public:
     virtual void start() = 0;
 
     ///Returns the number of pieces for the corresponding player
-    virtual int getNoPieces(Player player);
+    int getNoPieces(Player player);
 
     ///Outputs all legal moves for the corresponding piece to perform.
     virtual void setLegalMoves() = 0;
@@ -97,11 +101,6 @@ public:
     ///Returns the evaluation value of the current board state
     virtual int evaluate();
 
-    ///Toggle debug	mode on	or off. In debug made your software	can	display	to standard	output any additional
-    ///information it wants. However, when debug mode is off only the asked	for	output should be displayed.
-    ///By default the debug	should be off.
-    virtual void debug() = 0;
-
     ///Returns true if the game has reached a winning state
     bool getWinState();
 
@@ -109,6 +108,8 @@ public:
     std::vector<Moves> getlegalMoves();
 
     std::string getDifficulty();
+
+    void incTurns();
 
 protected:
     std::string m_difficulty;

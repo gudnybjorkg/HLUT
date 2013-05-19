@@ -22,8 +22,6 @@ Displays the winner if a winnig state has been reached
 */
 void go(GamePlay* game);
 
-Moves* legal(int fr, int fc, int tr, int tc);
-
 int mm(GamePlay* game, int depth, Moves* m );
 
 int main()
@@ -159,10 +157,6 @@ int main()
         {
             game->level(level);
         }
-        else if(command == "debug")
-        {
-            game->debug();
-        }
         else if(command == "quit")
         {
             cout << "Dave, stop. Stop will you? Stop, Dave.";
@@ -199,11 +193,12 @@ void commands()
 
 void go(GamePlay* game){
     game->setLegalMoves();
-    cout << "HALLO" << endl;
+    if(game->getlegalMoves().empty())
+        game->incTurns();
+
     string difficulty = game->getDifficulty();
     if(difficulty == "random"){
         int rmove = rand() % game->getlegalMoves().size();
-        cout << "RMOVE BEFORE" << rmove << endl;
         Moves m = game->getlegalMoves()[rmove];
         game->make(m.from_row, m.from_col, m.to_row, m.to_col);
     }
@@ -223,14 +218,19 @@ void go(GamePlay* game){
 }
 
 int mm(GamePlay* game, int depth, Moves* m ){
+    cout << "begin" << endl;
     int bestValue = -3000;
-    int value;
-    if(depth == 0)
+    int value = game->evaluate();
+    if(depth <= 0)
+        return game->evaluate();
+    if(game->getWinState())
         return bestValue;
     game->setLegalMoves();
+    cout << "after set legal moves" << endl;
     for(vector<Moves>::iterator it = game->getlegalMoves().begin(); it != game->getlegalMoves().end(); ++it){
         game->make(it->from_row, it->from_col, it->to_row, it->to_col);
         value = -mm(game, depth-1, NULL);
+        cout << "before retract" << endl;
         game->retract();
         if(value > bestValue){
             bestValue = value;
@@ -240,13 +240,3 @@ int mm(GamePlay* game, int depth, Moves* m ){
     }
 }
 
-Moves* legal(GamePlay* game, int fr, int fc, int tr, int tc){
-    Moves *m = new Moves(fr,fc,tr,tc);
-    vector <Moves> moves = game->getlegalMoves();
-
-    for(vector<Moves>::iterator it = moves.begin(); it != moves.end(); ++it){
-        if(*m == *it)
-            return m;
-    }
-    return NULL;
-}
