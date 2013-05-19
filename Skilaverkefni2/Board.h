@@ -21,13 +21,13 @@ Constructs a square board with a specific size of length and width.
 class Board
 {
 public:
-    //Constructor
+    ///Constructor
     Board() {}
 
-    //Destructor
+    ///Destructor
     ~Board();
 
-    //Constructs a square board with a specific size of length and width.
+    ///Constructs a square board with a specific size of length and width.
     Board(int length, int width);
 
     ///Returns the board
@@ -75,9 +75,9 @@ public:
     }
 
 private:
-    int m_length;
-    int m_width;
-    Piece **m_tiles;
+    int m_length;  ///the length of the board
+    int m_width;   ///the width of the board
+    Piece **m_tiles;   ///tiles of the board
 };
 
 #endif // BOARD_H

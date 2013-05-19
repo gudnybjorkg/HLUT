@@ -1,12 +1,14 @@
 #include "Board.h"
 using namespace std;
 
+///Destructor for the board
 Board::~Board(){
     for(int i = 0; i < m_width; i++)
         delete [] m_tiles[i];
     delete [] m_tiles;
 }
 
+///Constructor for the board
 Board::Board(int length, int width){
     m_length = length;
     m_width = width;
@@ -25,6 +27,7 @@ Board::Board(int length, int width){
     }
 }
 
+///Returns the tiles on the board
 Piece** Board::getBoard(){
     return m_tiles;
 }
