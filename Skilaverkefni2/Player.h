@@ -60,8 +60,8 @@ private:
     char m_type;
     std::pair<int, int> m_lastLocation;     ///For retrieval moves
     std::pair<int, int> m_nextLocation;     ///For making the next move
-    int noPawns;
-    int m_score;
+    int noPawns;                            ///The number of the pawns
+    int m_score;                            ///The score for the current player
     bool m_killed;                          ///True if last move killed
 };
 

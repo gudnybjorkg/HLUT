@@ -71,6 +71,7 @@ pair<int,int> Player::getPrevLocation()
     return m_lastLocation;
 }
 
+///decrements the pawn count of the player
 void Player::decPawns()
 {
     noPawns--;
