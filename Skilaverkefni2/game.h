@@ -79,7 +79,7 @@ public:
 
     ///Retracts the last move performed by the corresponding player,
     ///also retrieving the last move og the opposite player
-    virtual void retract();
+    void retract();
 
     ///Displays the current gamestate, ie. each piece on the board in it's position
     ///Each tile containing a '.' is an empty square.

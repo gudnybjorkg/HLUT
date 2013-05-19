@@ -52,7 +52,7 @@ void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
 
         m_p1.setLastLocation(from_row, from_col);
 
-        cout << "move " << from_col	<< " " << from_row << " " << to_col << " " << to_row << endl;
+        cout << "move " << from_row	<< " " << from_col << " " << to_row << " " << to_col << endl;
     }
     else
     {
@@ -112,6 +112,7 @@ void Breakthrough::start()
 }
 bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
 {
+    cout << "LEGAL MOVE BEGINS" << endl;
     ///Checks if you try to access pieces outside of the board
     if(from_row < 0 || from_row > 7)
         return false;
@@ -127,29 +128,28 @@ bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
         //if the player tries to move a pawn that is not his
         if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p1.getId())
         {
-            //cout << "Illegal move, this is not your pawn." << endl;
+            cout << "Illegal move, this is not your pawn." << endl;
             return false;
         }
         //if the destination tile is further than one tile away
         //and if the player tries to move the piece backwards or sideways
         if((to_row - from_row) != 1  || (from_row >= to_row))
         {
-            //cout << "Illegal move, you cannot go there." << endl;
+            cout << "Illegal move, you cannot go there." << endl;
             return false;
         }
         //If there is an opponent in the destination tile and the tile is infront of the pawn to be moved
         if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p2.getId() && to_col == from_col)
         {
-            //cout << "Illigal move, you cannot kill this pawn." << endl;
+            cout << "Illegal move, you cannot kill this pawn." << endl;
             return false;
         }
         //if the destination tile holds a pawn that is on the players team
         else if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p1.getId())
         {
-            //cout << "Illigal move, you already have a pawn there." << endl;
+            cout << "Illegal move, you already have a pawn there." << endl;
             return false;
         }
-
     }
     else
     {
@@ -178,8 +178,8 @@ bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
             //cout << "Illigal move, you already have a pawn there." << endl;
             return false;
         }
-        return true;
     }
+    cout << "LEGAL MOVE ENDS" << endl;
     return true;
 }
 
@@ -214,30 +214,40 @@ int Breakthrough::finalState()
             {
                 if((p[i][j]).getOwner().getId() == 0)
                 {
-                    if(legalMove(i,j,(i+1),(j-1)))
+                    cout << "Set legal moves IN IF OWNER" << i << j << i+1 << j-1 << endl;
+                    if(legalMove(i,j,(i+1),(j-1))){
                         m_legalMoves.push_back(Moves(i, j, i+1, j-1));
-                    if(legalMove(i,j,(i+1),(j)))
+                         cout << "INPUT" << endl;
+                    }
+                    //cout << "Set legal moves IN IF OWNER AFTER J-1" << i << j << i+1 << j-1 << endl;
+                    if(legalMove(i,j,(i+1),(j))){
                         m_legalMoves.push_back(Moves(i, j, i+1, j));
-                    if(legalMove(i,j,(i+1),(j+1)))
+                        cout << "INPUT" << endl;
+                    }
+                    //cout << "Set legal moves IN IF OWNER AFTER J" << i << j << i+1 << j-1 << endl;
+                    if(legalMove(i,j,(i+1),(j+1))){
                         m_legalMoves.push_back(Moves(i, j, i+1, j+1));
+                        cout << "INPUT" << endl;
+                    }
+                    cout << "Set legal moves IN IF OWNER AFTER J+1" << i << j << i+1 << j-1 << endl;
                 }
             }
         }
     }
     else
     {
-        for(int i = 1; i < 8; i++)
+        for(int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 8; j++)
             {
                 if((p[i][j]).getOwner().getId() == 1)
                 {
                     if(legalMove(i,j,(i-1),(j-1)))
-                        m_legalMoves.push_back(Moves(i,j,i+1,j-1));
+                        m_legalMoves.push_back(Moves(i,j,i-1,j-1));
                     if(legalMove(i,j,(i-1),(j)))
-                        m_legalMoves.push_back(Moves(i,j,i+1,j));
+                        m_legalMoves.push_back(Moves(i,j,i-1,j));
                     if(legalMove(i,j,(i-1),(j+1)))
-                        m_legalMoves.push_back(Moves(i,j,i+1,j+1));
+                        m_legalMoves.push_back(Moves(i,j,i-1,j+1));
                 }
             }
         }

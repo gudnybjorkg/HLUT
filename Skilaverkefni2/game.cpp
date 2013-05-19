@@ -51,7 +51,6 @@ void GamePlay::retract()
     m_p1 = previousState.p1;
     m_p2 = previousState.p2;
     m_board = previousState.b;
-    display();
     m_states.pop();
 }
 

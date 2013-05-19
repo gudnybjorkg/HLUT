@@ -52,27 +52,6 @@ public:
     ///Get id
     int getId();
 
-    /*Assignment operator
-    Player& operator =(const Player& rhs)
-    {
-        if(this != &rhs)
-        {
-            m_id = rhs.m_id;
-            m_type = rhs.m_type;
-
-            m_lastLocation.first = rhs.m_lastLocation.first;
-            m_lastLocation.second = rhs.m_lastLocation.second;
-
-            m_nextLocation.first = rhs.m_nextLocation.first;
-            m_nextLocation.second = rhs.m_nextLocation.second;
-
-            noPawns = rhs.noPawns;
-            m_score = rhs.m_score;
-            m_killed = rhs.m_killed;
-            m_difficulty = rhs.m_difficulty;
-        }
-        return *this;
-    }*/
     ///Destructor
     ~Player();
 

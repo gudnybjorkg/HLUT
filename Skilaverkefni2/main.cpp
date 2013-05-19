@@ -3,6 +3,7 @@
 #include <sstream>
 #include <istream>
 #include <ostream>
+#include <cfloat>
 #include "stdlib.h"
 #include <time.h>
 #include <iterator>
@@ -22,8 +23,12 @@ Displays the winner if a winnig state has been reached
 void go(GamePlay* game);
 
 Moves* legal(int fr, int fc, int tr, int tc);
+
+int mm(GamePlay* game, int depth, Moves* m );
+
 int main()
 {
+    srand(time(NULL));
     GamePlay *game;
     int gameNr = 0;
     string line, command;
@@ -194,20 +199,44 @@ void commands()
 
 void go(GamePlay* game){
     game->setLegalMoves();
+    cout << "HALLO" << endl;
     string difficulty = game->getDifficulty();
     if(difficulty == "random"){
         int rmove = rand() % game->getlegalMoves().size();
+        cout << "RMOVE BEFORE" << rmove << endl;
         Moves m = game->getlegalMoves()[rmove];
         game->make(m.from_row, m.from_col, m.to_row, m.to_col);
     }
     else if(difficulty == "easy"){
-
+        Moves* m = NULL;
+        mm(game, 1, m);
+        game->make(m->from_row, m->from_col, m->to_row, m->to_col);
     }
     else if(difficulty == "medium"){
-
+        Moves* m = NULL;
+        mm(game, 3, m);
+        game->make(m->from_row, m->from_col, m->to_row, m->to_col);
     }
     else if(difficulty == "hard"){
 
+    }
+}
+
+int mm(GamePlay* game, int depth, Moves* m ){
+    int bestValue = -3000;
+    int value;
+    if(depth == 0)
+        return bestValue;
+    game->setLegalMoves();
+    for(vector<Moves>::iterator it = game->getlegalMoves().begin(); it != game->getlegalMoves().end(); ++it){
+        game->make(it->from_row, it->from_col, it->to_row, it->to_col);
+        value = -mm(game, depth-1, NULL);
+        game->retract();
+        if(value > bestValue){
+            bestValue = value;
+            if(m != NULL)
+                *m = *it;
+        }
     }
 }
 

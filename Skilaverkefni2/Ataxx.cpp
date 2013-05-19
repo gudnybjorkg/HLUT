@@ -27,6 +27,7 @@ void Ataxx::start()
 
 bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
 {
+    //cout << "LegalMove - bool" << from_row << " " << from_col << endl;
     ///Checks if you try to access pieces outside of the board
     if(from_row < 0 || from_row > 6)
         return false;
@@ -39,19 +40,13 @@ bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
 
     if(m_turns % 2 == 0)
     {
-        if(m_board.getBoard()[from_row][from_col].getOwner().getId() == m_p2.getId())
-        {
-            //cout << "Illegal move, this is not your pawn!" << endl;
+        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p1.getId())
             return false;
-        }
     }
     else
     {
-        if(m_board.getBoard()[from_row][from_col].getOwner().getId() == m_p1.getId())
-        {
-            //cout << "Illegal move, this is not your pawn!" << endl;
+        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p2.getId())
             return false;
-        }
     }
     if (max(abs(from_col-to_col),(abs(from_row - to_row)))<= 2)  ///checks if the move is 2 blocks away
     {
@@ -176,11 +171,14 @@ void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
         }
     }
     m_turns++;
+    cout << "move " << from_row << " " << from_col << " " << to_row << " " << to_col << endl;
 }
 
 
 void Ataxx::setLegalMoves()
 {
+    m_legalMoves.clear();
+
     Piece** p = m_board.getBoard();
     if(m_turns % 2 == 0)
     {
@@ -194,7 +192,6 @@ void Ataxx::setLegalMoves()
                     {
                         for(int l = (j-2); l < ((j-2)+5); l++)
                         {
-                            cout << "SET LEGAL MOVE" << i << " " << j << endl;
                             if(legalMove(i,j,k,l))
                                 m_legalMoves.push_back(Moves(i,j,k,l));
                         }
@@ -205,15 +202,15 @@ void Ataxx::setLegalMoves()
     }
     else
     {
-        for(int i = 0; i < 8; ++i)
+        for(int i = 0; i < 7; ++i)
         {
-            for(int j = 0; j < 8; ++j)
+            for(int j = 0; j < 7; ++j)
             {
                 if(p[i][j].getOwner().getId() == 1)
                 {
-                    for(int k = (i-2); k < 5; ++k)
+                    for(int k = (i-2); k < ((i-2)+5); ++k)
                     {
-                        for(int l = (j-2); l < 5; ++l)
+                        for(int l = (j-2); l < ((j-2)+5); ++l)
                         {
                             if(legalMove(i,j,k,l))
                                 m_legalMoves.push_back(Moves(i,j,k,l));

@@ -30,11 +30,8 @@ public:
     //Constructs a square board with a specific size of length and width.
     Board(int length, int width);
 
-    //Returns the board
+    ///Returns the board
     Piece** getBoard();
-
-    //Sets the piece to the destination <row, col>
-    void setPieceOnBoard(int row, int col, Player playa);
 
     ///Asignment operator
     Board& operator =(const Board& rhs)

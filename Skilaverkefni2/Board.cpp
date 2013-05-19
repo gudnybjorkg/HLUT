@@ -26,12 +26,6 @@ Board::Board(int length, int width){
     }
 }
 
-void Board::setPieceOnBoard(int row, int col, Player playa)
-{
-    m_tiles[row][col] = playa.getType();
-    m_tiles[row][col].setOwner(playa);
-}
-
 Piece** Board::getBoard(){
     return m_tiles;
 }
