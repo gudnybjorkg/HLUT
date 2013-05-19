@@ -40,7 +40,7 @@ public:
     virtual ~GamePlay();
 
     ///Returns true if move for the corresponding piece is valid
-    virtual bool legalMove(int from_row, int from_col, std::pair<int, int> destination) = 0;
+    virtual bool legalMove(int from_row, int from_col, int to_row, int to_col) = 0;
 
     ///Outputs the list of games available to play
     void listOfGames();
@@ -92,9 +92,12 @@ public:
     ///By default the debug	should be off.
     virtual void debug() = 0;
 
+    bool getWinState();
+
 protected:
     std::string m_difficulty;
     int m_turns;            /// Counts the number of turns in the game
+    bool m_win;
     Board m_board;
     Player m_p1;
     Player m_p2;

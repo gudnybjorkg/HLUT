@@ -9,18 +9,18 @@ public:
     ~Ataxx(){}
     bool finalState();
 
-    virtual bool legalMove(int from_row, int from_col, std::pair<int, int> destination);
+    virtual bool legalMove(int from_row, int from_col, int to_row, int to_col);
     virtual void make(int from_row, int from_col, int to_row, int to_col);
     virtual void go();
     virtual void start();
-    void convertPiece(int row, int col, Player p, Player opp);
+    void convertPiece(int row, int col);
     virtual void display();
 
 
     //yet to implement
     virtual void level(std::string difficulty){}
     virtual void debug(){}
-    virtual void legal(){}
+    virtual void legal();
     virtual int getNoPieces(Player player){return 1;}
 
 };

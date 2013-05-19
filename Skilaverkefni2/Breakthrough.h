@@ -12,7 +12,7 @@ class Breakthrough : public GamePlay
         int finalState();
 
         void start();
-        bool legalMove(int from_row, int from_col, std::pair<int, int> destination);
+        bool legalMove(int from_row, int from_col, int to_row, int to_col);
         void make(int from_row, int from_col, int to_row, int to_col);
         void go();
         void legal();

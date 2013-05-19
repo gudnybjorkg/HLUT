@@ -16,17 +16,13 @@ Breakthrough::Breakthrough() : GamePlay()
 void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
 {
 
-    if(!legalMove(from_row, from_col, pair<int,int>(to_row,to_col)))
-    {
-        //cout << "This is not a legal move, please try again." << endl;
+    if(!legalMove(from_row, from_col, to_row, to_col))
         return;
-    }
 
     State currentState;
     currentState.p1 = m_p1;
     currentState.p2 = m_p2;
     currentState.b = m_board;
-    currentState.turns = m_turns;
     m_states.push(currentState);
 
     //Finding the player which turn it is
@@ -34,22 +30,7 @@ void Breakthrough::make(int from_row, int from_col, int to_row, int to_col)
     {
         m_p1.setLastLocation(from_row,from_col);
         m_p1.setNextLocation(to_row, to_col);
-    }
-    else
-    {
-        m_p2.setLastLocation(from_row,from_col);
-        m_p2.setNextLocation(to_row, to_col);
-    }
-    //Sets the locations to be moved to.
-    cout << "Make : turns " << m_turns << endl;
-    go();
-}
 
-void Breakthrough::go()
-{
-    if(m_turns % 2 == 0)
-    {
-        //The locations
         int to_row = m_p1.getNextLocation().first;
         int to_col = m_p1.getNextLocation().second;
         int from_row = m_p1.getPrevLocation().first;
@@ -73,6 +54,9 @@ void Breakthrough::go()
     }
     else
     {
+        m_p2.setLastLocation(from_row,from_col);
+        m_p2.setNextLocation(to_row, to_col);
+
         //The locations
         int to_row = m_p2.getNextLocation().first;
         int to_col = m_p2.getNextLocation().second;
@@ -93,12 +77,28 @@ void Breakthrough::go()
 
         cout << "move " << from_row	<< " " << from_col << " " << to_row << " " << to_col << endl;
     }
-    m_turns++;
 
     if(m_p1.getId() == finalState())
+    {
         cout << "Congratulations, Player 1 wins!" << endl;
+        m_win = true;
+    }
     else if(m_p2.getId() == finalState())
+    {
         cout << "Congratulations, Player 2 wins!" << endl;
+        m_win = true;
+    }
+    else
+    {
+        cout << "There was a tie!" << endl;
+        m_win = true;
+    }
+    m_turns++;
+}
+
+void Breakthrough::go()
+{
+    string level = m_difficulty;
 }
 
 void Breakthrough::start()
@@ -118,34 +118,31 @@ void Breakthrough::start()
 
     }
 }
-bool Breakthrough::legalMove(int row, int col, pair<int, int> destination)
+bool Breakthrough::legalMove(int from_row, int from_col, int to_row, int to_col)
 {
-    int destX = destination.first;
-    int destY = destination.second;
-
     if(m_turns % 2 == 0)
     {
         //if the player tries to move a pawn that is not his
-        if(m_board.getBoard()[row][col].getOwner().getId() != m_p1.getId())
+        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p1.getId())
         {
             cout << "Illegal move, this is not your pawn." << endl;
             return false;
         }
         //if the destination tile is further than one tile away
         //and if the player tries to move the piece backwards or sideways
-        if((destX - row) != 1  || (row >= destX))
+        if((to_row - from_row) != 1  || (from_row >= to_row))
         {
             cout << "Illegal move, you cannot go there." << endl;
             return false;
         }
         //If there is an opponent in the destination tile and the tile is infront of the pawn to be moved
-        if(m_board.getBoard()[destX][destY].getOwner().getId() == m_p2.getId() && destY == col)
+        if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p2.getId() && to_col == from_col)
         {
             cout << "Illigal move, you cannot kill this pawn." << endl;
             return false;
         }
         //if the destination tile holds a pawn that is on the players team
-        else if(m_board.getBoard()[destX][destY].getOwner().getId() == m_p1.getId())
+        else if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p1.getId())
         {
             cout << "Illigal move, you already have a pawn there." << endl;
             return false;
@@ -155,26 +152,26 @@ bool Breakthrough::legalMove(int row, int col, pair<int, int> destination)
     else
     {
         //if the player tries to move a pawn that is not his
-        if(m_board.getBoard()[row][col].getOwner().getId() != m_p2.getId())
+        if(m_board.getBoard()[from_row][from_col].getOwner().getId() != m_p2.getId())
         {
             cout << "Illegal move, this is not your pawn." << endl;
             return false;
         }
         //if the destination tile is further than one tile away
         //and if the player tries to move the piece backwards or sideways
-        if((destX - row) != -1  || (row <= destX))
+        if((to_row - from_row) != -1  || (from_row <= to_row))
         {
             cout << "Illegal move, you cannot go there." << endl;
             return false;
         }
         //If there is an opponent in the destination tile and the tile is infront of the pawn to be moved
-        if(m_board.getBoard()[destX][destY].getOwner().getId() == m_p1.getId() && destY == col)
+        if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p1.getId() && to_col == from_col)
         {
             cout << "Illigal move, you cannot kill this pawn." << endl;
             return false;
         }
         //if the destination tile holds a pawn that is on the players team
-        else if(m_board.getBoard()[destX][destY].getOwner().getId() == m_p2.getId())
+        else if(m_board.getBoard()[to_row][to_col].getOwner().getId() == m_p2.getId())
         {
             cout << "Illigal move, you already have a pawn there." << endl;
             return false;
@@ -200,61 +197,79 @@ int Breakthrough::finalState()
 
 void Breakthrough::legal()
 {
-    /*pair<int,int> currentLocation = pair<int,int>(row,col);
-    //int localY = currentLocation.first;
-    //int localX = currentLocation.second;
+    Piece** p = m_board.getBoard();
     bool check = false;
 
-    Player p;
     if(m_turns % 2 == 0)
     {
-        p = m_p1;
-    }
-
-    if(p.getId() == 0)
-    {
-        cout << "Legal moves: " << '\n';
-        for(int i = 0; i < 3; i++)
+        cout << "Legal moves:" << endl << endl;
+        for(int i = 0; i < 8; i++)
         {
-            pair<int,int> dest(localY+1,((localX-1)+i));
-            if(legalMove(row, col, dest))
+            for(int j = 0; j < 8; j++)
             {
-                check = true;
-                cout << "(" << dest.first << "," << dest.second << ")" << '\n';
+                if((p[i][j]).getOwner().getId() == 0)
+                {
+
+                    cout << "Piece: [" << i << "][" << j << "]:" << endl;
+                    if(legalMove(i,j,(i+1),(j-1)))
+                    {
+                        check = true;
+                        cout << "[" << (i+1) << "][" << (j-1) << "]" << endl;
+                    }
+                    if(legalMove(i,j,(i+1),(j)))
+                    {
+                        check = true;
+                        cout << "[" << (i+1) << "][" << j << "]" << endl;
+                    }
+                    if(legalMove(i,j,(i+1),(j+1)))
+                    {
+                        check = true;
+                        cout << "[" << (i+1) << "][" << (j+1) << "]" << endl;
+                    }
+                    if(!check)
+                    {
+                        cout << "No moves for this piece" << endl;
+                    }
+                    cout << endl;
+                }
             }
-
-        }
-
-        if(!check)
-        {
-            cout << "There are no legal moves for this piece" << '\n';
-        }
-
-
-    }
-    else if(p.getId() == 1)
-    {
-        cout << "Legal moves: " << '\n';
-        for(int i = 0; i < 3; i++)
-        {
-            pair<int,int> dest(localY-1,((localX-1)+i));
-            if(legalMove(row, col, dest))
-            {
-                check = true;
-                cout << "(" << dest.first << "," << dest.second << ")" << '\n';
-            }
-
-        }
-
-        if(!check)
-        {
-            cout << "There are no legal moves for this piece" << '\n';
         }
     }
     else
     {
-        cout << "That's not a knife, that's a spoon." << '\n';
-    }*/
+        cout << "Legal moves:" << endl << endl;
+        for(int i = 1; i < 8; i++)
+        {
+            for(int j = 0; j < 8; j++)
+            {
+                if((p[i][j]).getOwner().getId() == 0)
+                {
+
+                    cout << "Piece: [" << i << "][" << j << "]:" << endl;
+                    if(legalMove(i,j,(i-1),(j-1)))
+                    {
+                        check = true;
+                        cout << "[" << (i+1) << "][" << (j-1) << "]" << endl;
+                    }
+                    if(legalMove(i,j,(i-1),(j)))
+                    {
+                        check = true;
+                        cout << "[" << (i+1) << "][" << j << "]" << endl;
+                    }
+                    if(legalMove(i,j,(i-1),(j+1)))
+                    {
+                        check = true;
+                        cout << "[" << (i+1) << "][" << (j+1) << "]" << endl;
+                    }
+                    if(!check)
+                    {
+                        cout << "No moves for this piece" << endl;
+                    }
+                    cout << endl;
+                }
+            }
+        }
+    }
 }
 
 void Breakthrough::display()

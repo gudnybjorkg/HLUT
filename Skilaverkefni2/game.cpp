@@ -11,6 +11,8 @@ GamePlay::GamePlay(){
     m_p1.setType('.');
     m_p2.setType('.');
     m_turns = 0;
+    m_difficulty = "easy";
+    m_win = false;
 }
 
 GamePlay::~GamePlay(){
@@ -45,11 +47,10 @@ void GamePlay::retract()
         return;
     }
     State previousState = m_states.top();
-
+    m_turns--;
     m_p1 = previousState.p1;
     m_p2 = previousState.p2;
     m_board = previousState.b;
-    //m_turns = previousState.turns;
     display();
     m_states.pop();
 }
@@ -75,4 +76,8 @@ void GamePlay::quit(){
     if(ans == 'y' || ans == 'Y')
         exit(0);
     else return;
+}
+
+bool GamePlay::getWinState(){
+    return m_win;
 }

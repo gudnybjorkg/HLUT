@@ -25,10 +25,8 @@ void Ataxx::start()
     m_board.getBoard()[6][6] = m_p2.getType();
 }
 
-bool Ataxx::legalMove(int from_row,int from_col, std::pair<int, int> destination)
+bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
 {
-    int to_row = destination.first;
-    int to_col = destination.second;
     if(m_turns % 2 == 0)
     {
         if(m_board.getBoard()[from_row][from_col].getOwner().getId() == m_p2.getId())
@@ -60,7 +58,7 @@ bool Ataxx::legalMove(int from_row,int from_col, std::pair<int, int> destination
     return false;
 }
 
-void Ataxx::convertPiece(int row, int col, Player p, Player opp)
+void Ataxx::convertPiece(int row, int col)
 {
     if(m_turns % 2 == 0)
     {
@@ -86,41 +84,19 @@ void Ataxx::convertPiece(int row, int col, Player p, Player opp)
 
 void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
 {
-    if (!legalMove(from_row,from_col,pair<int,int>(to_row,to_col)))
+    if (!legalMove(from_row,from_col,to_row, to_col))
         return;
 
     State currentState;
     currentState.p1 = m_p1;
     currentState.p2 = m_p2;
     currentState.b = m_board;
-    //currentState.turns = m_turns;
     m_states.push(currentState);
 
     if(m_turns % 2 == 0)
     {
         m_p1.setLastLocation(from_row, from_col);
         m_p1.setNextLocation(to_row, to_col);
-    }
-    else
-    {
-        m_p2.setLastLocation(from_row, from_col);
-        m_p2.setNextLocation(to_row, to_col);
-    }
-    go();
-}
-
-void Ataxx::go()
-{
-    if (m_turns %2 == 0)
-    {
-        std::pair<int, int> to = m_p1.getNextLocation();
-        std::pair<int, int> from = m_p1.getPrevLocation();
-        cout << "Player 1 from: " << m_p1.getPrevLocation().first << " " << m_p1.getPrevLocation().second << endl;
-        cout << "Player 1 to: " << m_p1.getNextLocation().first << " " << m_p2.getNextLocation().second << endl;
-        int from_row = from.first;
-        int from_col = from.second;
-        int to_row = to.first;
-        int to_col = to.second;
         Player playa = m_board.getBoard()[from_row][from_col].getOwner();
 
         if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)  ///checks if the   move is 1 block away
@@ -138,40 +114,14 @@ void Ataxx::go()
             m_board.getBoard()[from_row][from_col].setOwner(Player());
             m_board.getBoard()[from_row][from_col] = '.';
         }
-
-
-        ///convert all the pawns around the pawn
-        for (int i = 0; i < 7; i++)
-        {
-            for (int j = 0 ; j < 7; j++)
-            {
-                if (max(abs(to_row - i), abs(to_col - j)) == 1)
-                {
-                    convertPiece(i, j, m_p1, m_p2);
-                }
-            }
-        }
-        if(finalState())
-        {
-            if(m_p1.getNoPawns() < m_p2.getNoPawns())
-                cout << "Player 2 wins!" << endl;
-            if(m_p1.getNoPawns() > m_p2.getNoPawns())
-                cout << "Player 1 wins!" << endl;
-            else
-                cout << "There was a tie" << endl;
-        }
     }
     else
     {
-        std::pair<int, int> to = m_p2.getNextLocation();
-        std::pair<int, int> from = m_p2.getPrevLocation();
-        int from_row = from.first;
-        int from_col = from.second;
-        int to_row = to.first;
-        int to_col = to.second;
+        m_p2.setLastLocation(from_row, from_col);
+        m_p2.setNextLocation(to_row, to_col);
         Player playa = m_board.getBoard()[from_row][from_col].getOwner();
 
-        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)  ///checks if the   move is 1 block away
+        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)  ///checks if the move is 1 block away
         {
             m_board.getBoard()[to_row][to_col].setOwner(m_p2);
             m_board.getBoard()[to_row][to_col] = m_p2.getType();
@@ -185,21 +135,81 @@ void Ataxx::go()
             m_board.getBoard()[from_row][from_col].setOwner(Player());
             m_board.getBoard()[from_row][from_col] = '.';
         }
+    }
 
-
-        ///convert all the pawns around the pawn
-        for (int i = 0; i < 7; i++)
+    ///convert all the pawns around the pawn
+    for (int i = 0; i < 7; i++)
+    {
+        for (int j = 0 ; j < 7; j++)
         {
-            for (int j = 0 ; j < 7; j++)
+            if (max(abs(to_row - i), abs(to_col - j)) == 1)
             {
-                if (max(abs(to_row - i), abs(to_col - j)) == 1)
+                convertPiece(i, j);
+            }
+        }
+    }
+
+    if(finalState()){
+        if(m_p1.getNoPawns() > m_p2.getNoPawns()){
+            cout << "Player 1 wins!" << endl;
+            m_win = true;
+        }
+        else if(m_p2.getNoPawns() > m_p1.getNoPawns()){
+            cout << "Player 2 wins!" << endl;
+            m_win = true;
+        }
+        else{
+            cout << "There was a tie." << endl;
+            m_win = true;
+        }
+    }
+    m_turns++;
+}
+
+void Ataxx::go()
+{
+    string level = m_difficulty;
+}
+
+void Ataxx::legal()
+{
+    cout << "All legal moves: " << endl;
+    if(m_turns % 2 == 0)
+    {
+        for(int i = 0; i < 8; ++i)
+        {
+            for(int j = 0; j < 8; ++j)
+            {
+                if(m_board.getBoard()[i][j].getOwner().getId() == m_p1.getId())
                 {
-                    convertPiece(i, j, m_p2, m_p1);
+                    for(int k = 0; k < 8; ++k)
+                    {
+                        for(int l = 0; l < 8; ++l)
+                            if(legalMove(i,j,k,l))
+                                cout << "from (" << i << "," << j << ") to (" << k << "," << l << ")" << endl;
+                    }
                 }
             }
         }
     }
-    //m_turns++;
+    else
+    {
+        for(int i = 0; i < 8; ++i)
+        {
+            for(int j = 0; j < 8; ++j)
+            {
+                if(m_board.getBoard()[i][j].getOwner().getId() == m_p2.getId())
+                {
+                    for(int k = 0; k < 8; ++k)
+                    {
+                        for(int l = 0; l < 8; ++l)
+                            if(legalMove(i,j,k,l))
+                                cout << "from (" << i << "," << j << ") to (" << k << "," << l << ")" << endl;
+                    }
+                }
+            }
+        }
+    }
 }
 
 bool Ataxx::finalState()
