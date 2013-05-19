@@ -23,7 +23,6 @@ public:
     ///Returns the owner of the piece
     Player getOwner();
 
-
     ///Returns the type of the piece
     char getType();
 
@@ -35,9 +34,6 @@ public:
 
     ///Anitializes the location of the piece
     void setLocation(int x, int y);
-
-    ///Destructor
-    virtual ~Piece();
 
     ///Asignment operator
     Piece& operator =(const Piece& rhs)
