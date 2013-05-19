@@ -12,9 +12,9 @@ Ataxx::Ataxx() : GamePlay()
     m_p2.setNoPawns(2);
 }
 
+///Sets up the board to start the game
 void Ataxx::start()
 {
-
     m_board.getBoard()[0][0].setOwner(m_p2);
     m_board.getBoard()[0][0] = m_p2.getType();
     m_board.getBoard()[0][6].setOwner(m_p1);
@@ -25,10 +25,11 @@ void Ataxx::start()
     m_board.getBoard()[6][6] = m_p2.getType();
 }
 
+///Checks if the move sent in is legal by following the rules given in the project
 bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
 {
-    //cout << "LegalMove - bool" << from_row << " " << from_col << endl;
-    ///Checks if you try to access pieces outside of the board
+    
+    ///out of bounds check
     if(from_row < 0 || from_row > 6)
         return false;
     if(from_col < 0 || from_col > 6)
@@ -38,8 +39,9 @@ bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
     if(to_col < 0 || to_col > 6)
         return false;
 
+    ///Player turn check
     if(m_turns % 2 == 0)
-    {
+{
         if(m_board.getBoard()[from_row][from_col].getType() != m_p1.getType())
             return false;
     }
@@ -56,30 +58,32 @@ bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
     return false;
 }
 
+//Converts a piece on the set row and column to the current players side
 void Ataxx::convertPiece(int row, int col)
 {
     if(m_turns % 2 == 0)
-    {
-        if (m_p1.getType() != m_board.getBoard()[row][col].getType() && m_board.getBoard()[row][col].getType()!= '.') /// if the player doesnt own the current pawn and the tile isn't empty
+    {   /// if the player doesnt own the current pawn and the tile isn't empty
+        if (m_p1.getType() != m_board.getBoard()[row][col].getType() && m_board.getBoard()[row][col].getType()!= '.') 
         {
             m_board.getBoard()[row][col].setOwner(m_p1);
             m_board.getBoard()[row][col] = m_p1.getType();
             m_p1.setNoPawns(m_p1.getNoPawns()+1);
-            m_p2.setNoPawns(m_p2.getNoPawns()-1);  ///win state hér ef opp á 0
+            m_p2.setNoPawns(m_p2.getNoPawns()-1);
         }
     }
     else
-    {
-        if (m_p2.getType() != m_board.getBoard()[row][col].getType() && m_board.getBoard()[row][col].getType() != '.') /// if the player doesnt own the current pawn and the tile isn't empty
+    {   /// if the player doesnt own the current pawn and the tile isn't empty
+        if (m_p2.getType() != m_board.getBoard()[row][col].getType() && m_board.getBoard()[row][col].getType() != '.') 
         {
             m_board.getBoard()[row][col].setOwner(m_p2);
             m_board.getBoard()[row][col] = m_p2.getType();
             m_p2.setNoPawns(m_p2.getNoPawns()+1);
-            m_p1.setNoPawns(m_p1.getNoPawns()-1);  ///win state hér ef opp á 0
+            m_p1.setNoPawns(m_p1.getNoPawns()-1);
         }
     }
 }
 
+///Makes the move from a specific row/col to a specific row/col
 void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
 {
     if (!legalMove(from_row,from_col,to_row, to_col))
@@ -87,21 +91,21 @@ void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
         cout << "Illegal move! Try again." << endl;
         return;
     }
-
+    //State created to save the current state in order to be able to retract to it later
     State currentState;
     currentState.p1 = m_p1;
     currentState.p2 = m_p2;
     currentState.b = m_board;
     m_states.push(currentState);
+    
     if(m_turns % 2 == 0)
     {
         m_p1.setLastLocation(from_row, from_col);
         m_p1.setNextLocation(to_row, to_col);
         Player playa = m_board.getBoard()[from_row][from_col].getOwner();
-
-        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)  ///checks if the   move is 1 block away
+        ///checks if the   move is 1 block away, if so we clone the pawn
+        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)   
         {
-            //m_board.setPieceOnBoard(to_row, to_col, playa); ///no need to remove pawn since we are cloning
             m_board.getBoard()[to_row][to_col].setOwner(m_p1);
             m_board.getBoard()[to_row][to_col] = m_p1.getType();
             m_p1.setNoPawns(m_p1.getNoPawns()+1);
@@ -120,8 +124,8 @@ void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
         m_p2.setLastLocation(from_row, from_col);
         m_p2.setNextLocation(to_row, to_col);
         Player playa = m_board.getBoard()[from_row][from_col].getOwner();
-
-        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)  ///checks if the move is 1 block away
+        ///checks if the move is 1 block away, if so we clone the pawn
+        if (max(abs(from_col - to_col), abs(from_row - to_row)) == 1)   
         {
             m_board.getBoard()[to_row][to_col].setOwner(m_p2);
             m_board.getBoard()[to_row][to_col] = m_p2.getType();
@@ -171,12 +175,15 @@ void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
     cout << "move " << from_row << " " << from_col << " " << to_row << " " << to_col << endl;
 }
 
-
+///Gets all legal moves for the player
 void Ataxx::setLegalMoves()
 {
     m_legalMoves.clear();
 
     Piece** p = m_board.getBoard();
+    
+    ///We iterate through the board until we find our pawn and then check the rest of the board and see
+    ///if its legal to move there, if so we push that move to the legalMoves vector
     if(m_turns % 2 == 0)
     {
         for(int i = 0; i < 7; ++i)
@@ -218,6 +225,8 @@ void Ataxx::setLegalMoves()
         }
     }
 }
+
+///Checks whether the board is full to see if the game is over
 bool Ataxx::finalState()
 {
     for(int i = 0; i < 7; ++i)
@@ -228,7 +237,7 @@ bool Ataxx::finalState()
     }
     return true;
 }
-
+///A display function for the board
 void Ataxx::display()
 {
     Piece** p = m_board.getBoard();
