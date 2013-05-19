@@ -4,6 +4,7 @@
 #include <istream>
 #include <ostream>
 #include "stdlib.h"
+#include <time.h>
 #include <iterator>
 #include "game.h"
 #include "Breakthrough.h"
@@ -13,6 +14,14 @@ using namespace std;
 
 void commands();
 
+/**
+The computer plays for the player to move using the current difficulty level
+and outputs the move it made as <from_col, from_row, to_col, to_row>
+Displays the winner if a winnig state has been reached
+*/
+void go(GamePlay* game);
+
+Moves* legal(int fr, int fc, int tr, int tc);
 int main()
 {
     GamePlay *game;
@@ -111,7 +120,13 @@ int main()
 
         if(command == "legal")
         {
-            game->legal();
+            cout << "All legal moves: " << endl;
+            //forlúppa í gegnum m_legalMoves gaurinn og skrifa hann út
+            game->setLegalMoves();
+            for(vector<Moves>::iterator it = game->getlegalMoves().begin(); it != game->getlegalMoves().end(); ++it){
+                cout << "from: [" << it->from_row << "," << it->from_col << "] to: [" << it->to_row << "," << it->to_col << "]" << endl;
+            }
+            cout << endl;
         }
         else if(command == "make")
         {
@@ -133,7 +148,7 @@ int main()
         }
         else if(command == "go")
         {
-            game->go();
+            go(game);
         }
         else if(command == "level")
         {
@@ -177,60 +192,32 @@ void commands()
     cout << "10.commands - Display this list of commands" << endl;
 }
 
+void go(GamePlay* game){
+    game->setLegalMoves();
+    string difficulty = game->getDifficulty();
+    if(difficulty == "random"){
+        int rmove = rand() % game->getlegalMoves().size();
+        Moves m = game->getlegalMoves()[rmove];
+        game->make(m.from_row, m.from_col, m.to_row, m.to_col);
+    }
+    else if(difficulty == "easy"){
 
+    }
+    else if(difficulty == "medium"){
 
+    }
+    else if(difficulty == "hard"){
 
-/*
-#include <iostream>
-#include "game.h"
-#include "Breakthrough.h"
-#include "Ataxx.h"
-
-using namespace std;
-
-int main()
-{
-    GamePlay *game;
-    int gameNr;
-    cout << "Please select the number of the game from the list below" << endl;
-    game->listOfGames();
-    cin >> gameNr;
-    if(gameNr == 1)
-        game = new Breakthrough();
-    else if(gameNr == 2)
-        game = new Ataxx();
-    else
-        cout << "Invalid game, please try again" << endl;
-    game->start();
-    game->display();
-    //game->legal();
-
-    int from_row;
-    int to_row;
-    int from_col;
-    int to_col;
-    char bla;
-    char go;
-    do
-    {
-        cout << "enter a movement: (from row, from col, to row, to col)";
-        cin  >> from_row;
-        cin >> from_col;
-        cin >> to_row;
-        cin >> to_col;
-        //game->legal();
-        game->make(from_row, from_col, to_row, to_col);
-        game->display();
-        cout << "Retract? ";
-        cin >> bla;
-        if(bla == 'y' || bla == 'Y'){
-            game->retract();
-            continue;
-        }
-        cout << "Go? ";
-        cin >> go;
-        if(go == 'y' || go == 'Y')
-            game->go();
-    }while(true);
+    }
 }
-*/
+
+Moves* legal(GamePlay* game, int fr, int fc, int tr, int tc){
+    Moves *m = new Moves(fr,fc,tr,tc);
+    vector <Moves> moves = game->getlegalMoves();
+
+    for(vector<Moves>::iterator it = moves.begin(); it != moves.end(); ++it){
+        if(*m == *it)
+            return m;
+    }
+    return NULL;
+}

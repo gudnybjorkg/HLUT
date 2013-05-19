@@ -81,3 +81,11 @@ void GamePlay::quit(){
 bool GamePlay::getWinState(){
     return m_win;
 }
+
+string GamePlay::getDifficulty(){
+    return m_difficulty;
+}
+
+vector<Moves> GamePlay::getlegalMoves(){
+    return m_legalMoves;
+}

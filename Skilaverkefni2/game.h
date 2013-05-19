@@ -7,6 +7,8 @@
 #include <vector>
 #include <string>
 #include <stack>
+#include <list>
+
 /**
 An interface for implemtation of two-player board games.
 */
@@ -20,6 +22,21 @@ struct State{
     Player p2;
     Board b;
     int turns;
+};
+
+/***/
+struct Moves{
+    Moves(int fRow, int fCol, int tRow, int tCol){
+        from_row = fRow;
+        from_col = fCol;
+        to_row = tRow;
+        to_col = tCol;
+    }
+    bool operator ==(const Moves& rhs) const{
+        return(from_col == rhs.from_col && from_row == rhs.from_row && to_col == rhs.to_col && to_row == rhs.to_row);
+    }
+    int from_row, from_col;
+    int to_row, to_col;
 };
 
 /**--------------------------------------------------------------------------
@@ -55,7 +72,7 @@ public:
     virtual int getNoPieces(Player player);
 
     ///Outputs all legal moves for the corresponding piece to perform.
-    virtual void legal() = 0;
+    virtual void setLegalMoves() = 0;
 
     ///Moves a pice from a position to another position
     virtual void make(int from_row, int from_col, int to_row, int to_col) = 0;
@@ -68,31 +85,30 @@ public:
     ///Each tile containing a '.' is an empty square.
     virtual void display() = 0;
 
-    /*
+    /**
     Sets the difficulty of the moves to be played
         random: plays a random legal move
         easy: plays the best legal move using an one-ply look-a-head and piece count evaluation
         medium: plays the best legal move using a three-ply minimax search and a piece count evaluation
         hard: plays the best legal move using a three-ply minimax search and an advanced evaluation
     */
-    virtual void level(std::string difficulty) = 0;
+    virtual void level(std::string difficulty);
 
     ///Returns the evaluation value of the current board state
     virtual int evaluate();
-
-    /*
-    The computer plays for the player to move using the current difficulty level
-    and outputs the move it made as <from_col, from_row, to_col, to_row>
-    Displays the winner if a winnig state has been reached
-    */
-    virtual void go() = 0;
 
     ///Toggle debug	mode on	or off. In debug made your software	can	display	to standard	output any additional
     ///information it wants. However, when debug mode is off only the asked	for	output should be displayed.
     ///By default the debug	should be off.
     virtual void debug() = 0;
 
+    ///Returns true if the game has reached a winning state
     bool getWinState();
+
+    ///Returns all legal moves.
+    std::vector<Moves> getlegalMoves();
+
+    std::string getDifficulty();
 
 protected:
     std::string m_difficulty;
@@ -102,6 +118,7 @@ protected:
     Player m_p1;
     Player m_p2;
     std::stack<State> m_states;
+    std::vector<Moves> m_legalMoves;
 };
 
 

@@ -27,11 +27,21 @@ void Ataxx::start()
 
 bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
 {
+    ///Checks if you try to access pieces outside of the board
+    if(from_row < 0 || from_row > 6)
+        return false;
+    if(from_col < 0 || from_col > 6)
+        return false;
+    if(to_row < 0 || to_row > 6)
+        return false;
+    if(to_col < 0 || to_col > 6)
+        return false;
+
     if(m_turns % 2 == 0)
     {
         if(m_board.getBoard()[from_row][from_col].getOwner().getId() == m_p2.getId())
         {
-            cout << "Illegal move, this is not your pawn!" << endl;
+            //cout << "Illegal move, this is not your pawn!" << endl;
             return false;
         }
     }
@@ -39,22 +49,18 @@ bool Ataxx::legalMove(int from_row,int from_col, int to_row, int to_col)
     {
         if(m_board.getBoard()[from_row][from_col].getOwner().getId() == m_p1.getId())
         {
-            cout << "Illegal move, this is not your pawn!" << endl;
+            //cout << "Illegal move, this is not your pawn!" << endl;
             return false;
         }
     }
     if (max(abs(from_col-to_col),(abs(from_row - to_row)))<= 2)  ///checks if the move is 2 blocks away
     {
         if (m_board.getBoard()[to_row][to_col].getType() == '.') /// if the tile is free
-        {
             return true;
-        }
-        else
-        {
-            cout << "Illegal move, this tile is occupado!" << endl;
-        }
+        //else
+        //cout << "Illegal move, this tile is occupado!" << endl;
     }
-    cout << "Illegal move, you cannot go there" << endl;
+    //cout << "Illegal move, you cannot go there" << endl;
     return false;
 }
 
@@ -85,14 +91,16 @@ void Ataxx::convertPiece(int row, int col)
 void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
 {
     if (!legalMove(from_row,from_col,to_row, to_col))
+    {
+        cout << "Illegal move! Try again." << endl;
         return;
+    }
 
     State currentState;
     currentState.p1 = m_p1;
     currentState.p2 = m_p2;
     currentState.b = m_board;
     m_states.push(currentState);
-
     if(m_turns % 2 == 0)
     {
         m_p1.setLastLocation(from_row, from_col);
@@ -149,16 +157,20 @@ void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
         }
     }
 
-    if(finalState()){
-        if(m_p1.getNoPawns() > m_p2.getNoPawns()){
+    if(finalState())
+    {
+        if(m_p1.getNoPawns() > m_p2.getNoPawns())
+        {
             cout << "Player 1 wins!" << endl;
             m_win = true;
         }
-        else if(m_p2.getNoPawns() > m_p1.getNoPawns()){
+        else if(m_p2.getNoPawns() > m_p1.getNoPawns())
+        {
             cout << "Player 2 wins!" << endl;
             m_win = true;
         }
-        else{
+        else
+        {
             cout << "There was a tie." << endl;
             m_win = true;
         }
@@ -166,27 +178,26 @@ void Ataxx::make(int from_row, int from_col, int to_row, int to_col)
     m_turns++;
 }
 
-void Ataxx::go()
-{
-    string level = m_difficulty;
-}
 
-void Ataxx::legal()
+void Ataxx::setLegalMoves()
 {
-    cout << "All legal moves: " << endl;
+    Piece** p = m_board.getBoard();
     if(m_turns % 2 == 0)
     {
-        for(int i = 0; i < 8; ++i)
+        for(int i = 0; i < 7; ++i)
         {
-            for(int j = 0; j < 8; ++j)
+            for(int j = 0; j < 7; ++j)
             {
-                if(m_board.getBoard()[i][j].getOwner().getId() == m_p1.getId())
+                if(p[i][j].getOwner().getId() == 0)
                 {
-                    for(int k = 0; k < 8; ++k)
+                    for(int k = (i-2); k < ((i-2)+5); k++)
                     {
-                        for(int l = 0; l < 8; ++l)
+                        for(int l = (j-2); l < ((j-2)+5); l++)
+                        {
+                            cout << "SET LEGAL MOVE" << i << " " << j << endl;
                             if(legalMove(i,j,k,l))
-                                cout << "from (" << i << "," << j << ") to (" << k << "," << l << ")" << endl;
+                                m_legalMoves.push_back(Moves(i,j,k,l));
+                        }
                     }
                 }
             }
@@ -198,20 +209,21 @@ void Ataxx::legal()
         {
             for(int j = 0; j < 8; ++j)
             {
-                if(m_board.getBoard()[i][j].getOwner().getId() == m_p2.getId())
+                if(p[i][j].getOwner().getId() == 1)
                 {
-                    for(int k = 0; k < 8; ++k)
+                    for(int k = (i-2); k < 5; ++k)
                     {
-                        for(int l = 0; l < 8; ++l)
+                        for(int l = (j-2); l < 5; ++l)
+                        {
                             if(legalMove(i,j,k,l))
-                                cout << "from (" << i << "," << j << ") to (" << k << "," << l << ")" << endl;
+                                m_legalMoves.push_back(Moves(i,j,k,l));
+                        }
                     }
                 }
             }
         }
     }
 }
-
 bool Ataxx::finalState()
 {
     for(int i = 0; i < 7; ++i)
